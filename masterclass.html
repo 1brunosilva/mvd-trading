@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Masterclass Gratuita de Trading — MVD Trading Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --green: #00d084;
@@ -23,8 +26,12 @@
         body {
             background: var(--bg);
             color: var(--text);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
             overflow-x: hidden;
+        }
+        h2 {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-weight: 400;
         }
 
         /* ===== TICKER BAR ===== */
@@ -113,7 +120,7 @@
             align-items: center;
             position: relative;
             overflow: hidden;
-            padding: 140px 80px 100px;
+            padding: clamp(130px,16vh,190px) clamp(32px,8vw,120px) clamp(64px,8vh,100px);
         }
         .hero-bg-img {
             position: absolute;
@@ -126,56 +133,69 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center right;
+            object-position: center center;
+            transform: scale(1.03);
         }
         .hero-overlay {
             position: absolute;
             inset: 0;
             z-index: 1;
             background:
-                linear-gradient(to right, rgba(8,12,16,0.94) 0%, rgba(8,12,16,0.78) 50%, rgba(8,12,16,0.30) 100%),
-                linear-gradient(to bottom, rgba(8,12,16,0.35) 0%, transparent 45%, rgba(8,12,16,0.90) 100%);
+                linear-gradient(112deg, rgba(5,8,12,0.97) 0%, rgba(5,8,12,0.88) 28%, rgba(5,8,12,0.56) 52%, rgba(5,8,12,0.18) 100%),
+                linear-gradient(to bottom, rgba(5,8,12,0.25) 0%, transparent 35%, rgba(5,8,12,0.80) 100%);
         }
         .hero-content {
             position: relative;
             z-index: 2;
-            max-width: 620px;
+            max-width: 580px;
         }
         .hero-content h1 {
-            font-size: clamp(2.8rem, 5vw, 4.4rem);
-            font-weight: 900;
-            line-height: 1.04;
-            letter-spacing: -.03em;
-            margin-bottom: 24px;
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-weight: 400;
+            font-size: clamp(3rem, 4.8vw, 5rem);
+            line-height: 1.03;
+            letter-spacing: -.01em;
+            margin-bottom: 28px;
         }
-        .hero-content h1 em { color: var(--green); font-style: normal; }
-        .hero-eyebrow {
-            font-size: .72rem;
-            text-transform: uppercase;
-            letter-spacing: .18em;
+        .hero-content h1 em {
             color: var(--green);
-            font-weight: 700;
-            margin-bottom: 20px;
+            font-style: italic;
+        }
+        .hero-eyebrow {
+            font-family: 'Outfit', sans-serif;
+            font-size: .68rem;
+            text-transform: uppercase;
+            letter-spacing: .22em;
+            color: var(--green);
+            font-weight: 600;
+            margin-bottom: 24px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            opacity: .9;
         }
         .hero-eyebrow::before {
             content: '';
             display: inline-block;
-            width: 28px;
+            width: 32px;
             height: 1px;
             background: var(--green);
-            opacity: .7;
+            flex-shrink: 0;
         }
         .hero-tagline {
-            font-size: 1.05rem;
-            color: rgba(232, 237, 242, 0.65);
-            line-height: 1.6;
-            margin-bottom: 44px;
-            letter-spacing: .01em;
+            font-size: 1.08rem;
+            font-weight: 400;
+            color: rgba(232,237,242,0.62);
+            line-height: 1.65;
+            margin-bottom: 48px;
+            letter-spacing: .005em;
         }
-        .hero-tagline strong { color: rgba(232, 237, 242, 0.9); font-weight: 500; }
+        .hero-tagline strong {
+            color: rgba(232,237,242,0.88);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 4px;
+        }
         .badge {
             display:inline-flex; align-items:center; gap:8px;
             background:rgba(0,208,132,.1);
@@ -206,25 +226,26 @@
             font-size:.68rem; font-weight:900;
         }
         .cta-primary {
-            display:inline-flex; align-items:center; gap:10px;
-            background:var(--green); color:#000;
-            padding:17px 38px; border-radius:8px;
-            font-weight:900; font-size:1rem;
-            text-decoration:none; text-transform:uppercase; letter-spacing:.07em;
-            transition:all .25s;
-            box-shadow:0 0 40px rgba(0,208,132,.3);
-            position:relative; overflow:hidden;
+            display: inline-flex; align-items: center; gap: 12px;
+            background: var(--green); color: #000;
+            padding: 18px 48px; border-radius: 3px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700; font-size: .82rem;
+            text-decoration: none; text-transform: uppercase; letter-spacing: .14em;
+            transition: all .3s cubic-bezier(.22,1,.36,1);
+            box-shadow: 0 0 48px rgba(0,208,132,.25), 0 2px 16px rgba(0,0,0,.4);
+            position: relative; overflow: hidden;
         }
         .cta-primary::after {
-            content:''; position:absolute; inset:0;
-            background:linear-gradient(to right,transparent,rgba(255,255,255,.18),transparent);
-            transform:translateX(-120%); transition:transform .45s;
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,.15), transparent);
+            transform: translateX(-130%); transition: transform .5s;
         }
-        .cta-primary:hover { background:#00f0a0; transform:translateY(-2px); box-shadow:0 0 60px rgba(0,208,132,.5); }
-        .cta-primary:hover::after { transform:translateX(120%); }
-        .cta-arrow { transition:transform .25s; }
-        .cta-primary:hover .cta-arrow { transform:translateX(4px); }
-        .cta-note { font-size:.79rem; color:var(--text-muted); margin-top:13px; }
+        .cta-primary:hover { background: #00e894; transform: translateY(-3px); box-shadow: 0 0 72px rgba(0,208,132,.45), 0 8px 32px rgba(0,0,0,.5); }
+        .cta-primary:hover::after { transform: translateX(130%); }
+        .cta-arrow { transition: transform .3s cubic-bezier(.22,1,.36,1); }
+        .cta-primary:hover .cta-arrow { transform: translateX(5px); }
+        .cta-note { font-size: .75rem; color: rgba(139,148,158,.65); margin-top: 16px; letter-spacing: .03em; }
 
         /* ===== COUNTDOWN CARD ===== */
         .cd-card {
@@ -494,14 +515,46 @@
             #journey { height: 350vh; }
         }
         @media (max-width:640px) {
-            #hero { padding: 120px 28px 80px; }
-            .hero-content h1 { font-size: 2.4rem; }
-            section { padding:64px 22px; }
-            header { padding:13px 22px; }
-            .header-btn { display:none; }
-            .proof-row { gap:40px; }
-            .ticker-bar { display:none; }
-            header { top:0; }
+            /* hero — centro todo */
+            #hero {
+                padding: 100px 24px 64px;
+                justify-content: center;
+                align-items: center;
+            }
+            .hero-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                max-width: 100%;
+            }
+            .hero-eyebrow {
+                justify-content: center;
+                font-size: .58rem;
+                letter-spacing: .13em;
+            }
+            .hero-eyebrow::before { display: none; }
+            .hero-content h1 { font-size: clamp(2.6rem, 10vw, 3.2rem); }
+            .hero-tagline { font-size: .98rem; max-width: 300px; }
+            .cta-primary {
+                width: 100%;
+                max-width: 340px;
+                justify-content: center;
+                padding: 18px 32px;
+            }
+            .cta-note { text-align: center; }
+
+            /* ocultar logos bar */
+            .logos-bar { display: none; }
+
+            /* generales */
+            section { padding: 60px 22px; }
+            header { padding: 13px 22px; top: 0; }
+            .header-btn { display: none; }
+            .proof-row { gap: 36px; }
+            .ticker-bar { display: none; }
+            .f-stats { grid-template-columns: 1fr 1fr; }
+            .trust-row { gap: 28px; flex-direction: column; align-items: center; }
         }
     </style>
 </head>
@@ -547,8 +600,8 @@
 <!-- ═══════════════════════ HERO ═══════════════════════ -->
 <section id="hero">
     <picture class="hero-bg-img">
-        <source media="(max-width: 640px)" srcset="hero-mobile.png">
-        <img src="hero-desktop.png" alt="" aria-hidden="true">
+        <source media="(max-width: 640px)" srcset="477F6A93-2F58-4733-B1A2-17B907E9ADA2.PNG">
+        <img src="52BF9154-CBE5-4BC5-A89C-368D815E5BCB.jpg" alt="" aria-hidden="true">
     </picture>
     <div class="hero-overlay"></div>
     <div class="hero-content">

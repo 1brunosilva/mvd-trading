@@ -91,19 +91,16 @@
             transition: border-color .3s;
         }
         .logo-wrap {
-            display:flex; align-items:center; gap:10px;
-            font-weight:800; font-size:1rem; letter-spacing:.04em;
-            text-decoration:none; color:var(--text);
+            display: flex;
+            align-items: center;
+            text-decoration: none;
         }
-        .logo-icon {
-            width:36px; height:36px;
-            background:rgba(0,208,132,.1);
-            border:1px solid rgba(0,208,132,.3);
-            border-radius:8px;
-            display:flex; align-items:center; justify-content:center;
-            font-size:.65rem; font-weight:900; color:var(--green); letter-spacing:.05em;
+        .logo-img {
+            height: 38px;
+            width: auto;
+            display: block;
+            object-fit: contain;
         }
-        .logo-wrap em { color:var(--green); font-style:normal; }
         .header-btn {
             background:var(--green); color:#000; border:none;
             padding:10px 22px; border-radius:6px;
@@ -133,16 +130,27 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center center;
-            transform: scale(1.03);
+            object-position: 65% center;
+            filter: contrast(1.08) brightness(0.82) saturate(0.9);
         }
         .hero-overlay {
             position: absolute;
             inset: 0;
             z-index: 1;
             background:
-                linear-gradient(112deg, rgba(5,8,12,0.97) 0%, rgba(5,8,12,0.88) 28%, rgba(5,8,12,0.56) 52%, rgba(5,8,12,0.18) 100%),
-                linear-gradient(to bottom, rgba(5,8,12,0.25) 0%, transparent 35%, rgba(5,8,12,0.80) 100%);
+                linear-gradient(108deg,
+                    rgba(5,8,12,0.97) 0%,
+                    rgba(5,8,12,0.91) 25%,
+                    rgba(5,8,12,0.62) 50%,
+                    rgba(5,8,12,0.22) 75%,
+                    rgba(5,8,12,0.08) 100%
+                ),
+                linear-gradient(to bottom,
+                    rgba(5,8,12,0.30) 0%,
+                    transparent 30%,
+                    transparent 65%,
+                    rgba(5,8,12,0.88) 100%
+                );
         }
         .hero-content {
             position: relative;
@@ -517,9 +525,14 @@
         @media (max-width:640px) {
             /* hero — centro todo */
             #hero {
-                padding: 100px 24px 64px;
-                justify-content: center;
+                padding: 108px 28px 0;
+                min-height: 100svh;
+                justify-content: flex-start;
                 align-items: center;
+                flex-direction: column;
+            }
+            .hero-bg-img img {
+                object-position: center 20%;
             }
             .hero-content {
                 display: flex;
@@ -527,6 +540,9 @@
                 align-items: center;
                 text-align: center;
                 max-width: 100%;
+                padding-bottom: 15svh;
+                margin-top: auto;
+                margin-bottom: auto;
             }
             .hero-eyebrow {
                 justify-content: center;
@@ -538,9 +554,9 @@
             .hero-tagline { font-size: .98rem; max-width: 300px; }
             .cta-primary {
                 width: 100%;
-                max-width: 340px;
+                max-width: 320px;
                 justify-content: center;
-                padding: 18px 32px;
+                padding: 17px 28px;
             }
             .cta-note { text-align: center; }
 
@@ -591,8 +607,7 @@
 <!-- ═══════════════════════ HEADER ═══════════════════════ -->
 <header id="hdr">
     <a class="logo-wrap" href="#">
-        <div class="logo-icon">MVD</div>
-        MVD <em>&nbsp;Trading</em>&nbsp;Academy
+        <img src="logo.png" alt="MVD Trading Academy" class="logo-img">
     </a>
     <a href="#registro" class="header-btn">Reservar mi lugar →</a>
 </header>
@@ -600,8 +615,8 @@
 <!-- ═══════════════════════ HERO ═══════════════════════ -->
 <section id="hero">
     <picture class="hero-bg-img">
-        <source media="(max-width: 640px)" srcset="477F6A93-2F58-4733-B1A2-17B907E9ADA2.PNG">
-        <img src="52BF9154-CBE5-4BC5-A89C-368D815E5BCB.jpg" alt="" aria-hidden="true">
+        <source media="(max-width: 640px)" srcset="bg-mobile.png">
+        <img src="bg-desktop.jpg" alt="" aria-hidden="true">
     </picture>
     <div class="hero-overlay"></div>
     <div class="hero-content">

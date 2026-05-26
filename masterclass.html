@@ -20,7 +20,6 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-
         body {
             background: var(--bg);
             color: var(--text);
@@ -28,595 +27,475 @@
             overflow-x: hidden;
         }
 
+        /* ===== TICKER BAR ===== */
+        .ticker-bar {
+            background: #04070a;
+            border-bottom: 1px solid rgba(0,208,132,0.1);
+            height: 36px;
+            overflow: hidden;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1001;
+        }
+        .ticker-track {
+            display: flex;
+            white-space: nowrap;
+            animation: tickerMove 40s linear infinite;
+            height: 100%;
+            align-items: center;
+            width: max-content;
+        }
+        .ticker-track:hover { animation-play-state: paused; }
+        .tick {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 0 28px; height: 100%;
+            border-right: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.72rem; font-weight: 600; letter-spacing: 0.02em;
+            flex-shrink: 0;
+        }
+        .tick-sym { color: var(--text-muted); }
+        .tick-val { color: var(--text); font-variant-numeric: tabular-nums; }
+        .tick-chg { font-size: 0.67rem; padding: 1px 5px; border-radius: 3px; font-weight: 700; }
+        .up  { color: var(--green); background: rgba(0,208,132,0.1); }
+        .dn  { color: var(--red);   background: rgba(255,77,77,0.1); }
+        @keyframes tickerMove {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
         /* ===== SCROLL ANIMATIONS ===== */
-        .reveal {
-            opacity: 0;
-            transform: translateY(44px);
-            transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
-                        transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .reveal-left {
-            opacity: 0;
-            transform: translateX(-54px);
-            transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
-                        transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .reveal-right {
-            opacity: 0;
-            transform: translateX(54px);
-            transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
-                        transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .reveal-scale {
-            opacity: 0;
-            transform: scale(0.88);
-            transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
-                        transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .reveal.visible, .reveal-left.visible,
-        .reveal-right.visible, .reveal-scale.visible {
-            opacity: 1;
-            transform: none;
-        }
-        .d1 { transition-delay: 0.08s; }
-        .d2 { transition-delay: 0.16s; }
-        .d3 { transition-delay: 0.24s; }
-        .d4 { transition-delay: 0.32s; }
-        .d5 { transition-delay: 0.40s; }
-        .d6 { transition-delay: 0.48s; }
+        .reveal { opacity:0; transform:translateY(44px); transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1); }
+        .reveal-left { opacity:0; transform:translateX(-54px); transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1); }
+        .reveal-right { opacity:0; transform:translateX(54px); transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1); }
+        .reveal-scale { opacity:0; transform:scale(0.88); transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1); }
+        .reveal.visible,.reveal-left.visible,.reveal-right.visible,.reveal-scale.visible { opacity:1; transform:none; }
+        .d1{transition-delay:.08s} .d2{transition-delay:.16s} .d3{transition-delay:.24s}
+        .d4{transition-delay:.32s} .d5{transition-delay:.40s} .d6{transition-delay:.48s}
 
         /* ===== HEADER ===== */
         header {
             position: fixed;
-            top: 0; width: 100%; z-index: 1000;
+            top: 36px; width: 100%; z-index: 1000;
             padding: 14px 40px;
             display: flex; align-items: center; justify-content: space-between;
-            background: rgba(8, 12, 16, 0.82);
+            background: rgba(8,12,16,0.82);
             backdrop-filter: blur(16px) saturate(1.5);
-            border-bottom: 1px solid rgba(0, 208, 132, 0.12);
-            transition: border-color 0.3s;
+            border-bottom: 1px solid rgba(0,208,132,0.12);
+            transition: border-color .3s;
         }
         .logo-wrap {
-            display: flex; align-items: center; gap: 10px;
-            font-weight: 800; font-size: 1rem; letter-spacing: 0.04em;
-            text-decoration: none; color: var(--text);
+            display:flex; align-items:center; gap:10px;
+            font-weight:800; font-size:1rem; letter-spacing:.04em;
+            text-decoration:none; color:var(--text);
         }
         .logo-icon {
-            width: 36px; height: 36px;
-            background: rgba(0,208,132,0.1);
-            border: 1px solid rgba(0,208,132,0.3);
-            border-radius: 8px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.65rem; font-weight: 900; color: var(--green);
-            letter-spacing: 0.05em;
+            width:36px; height:36px;
+            background:rgba(0,208,132,.1);
+            border:1px solid rgba(0,208,132,.3);
+            border-radius:8px;
+            display:flex; align-items:center; justify-content:center;
+            font-size:.65rem; font-weight:900; color:var(--green); letter-spacing:.05em;
         }
-        .logo-wrap em { color: var(--green); font-style: normal; }
+        .logo-wrap em { color:var(--green); font-style:normal; }
         .header-btn {
-            background: var(--green);
-            color: #000; border: none;
-            padding: 10px 22px; border-radius: 6px;
-            font-weight: 800; font-size: 0.82rem;
-            cursor: pointer; text-transform: uppercase;
-            letter-spacing: 0.08em; text-decoration: none;
-            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+            background:var(--green); color:#000; border:none;
+            padding:10px 22px; border-radius:6px;
+            font-weight:800; font-size:.82rem; cursor:pointer;
+            text-transform:uppercase; letter-spacing:.08em; text-decoration:none;
+            transition:background .2s,transform .2s,box-shadow .2s;
         }
-        .header-btn:hover {
-            background: #00f0a0;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 20px rgba(0,208,132,0.3);
-        }
+        .header-btn:hover { background:#00f0a0; transform:translateY(-1px); box-shadow:0 4px 20px rgba(0,208,132,.3); }
 
         /* ===== HERO ===== */
         #hero {
-            min-height: 100vh;
-            display: flex; align-items: center;
-            position: relative; overflow: hidden;
-            padding: 110px 40px 70px;
+            min-height:100vh;
+            display:flex; align-items:center;
+            position:relative; overflow:hidden;
+            padding: 160px 40px 80px;
+        }
+        .hero-bg {
+            position:absolute; inset:0;
+            background-image: url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1800&q=80');
+            background-size:cover; background-position:center;
+            opacity:.07;
+            will-change: transform;
         }
         #chartCanvas {
-            position: absolute; inset: 0;
-            width: 100%; height: 100%;
-            opacity: 0.09; pointer-events: none;
+            position:absolute; inset:0;
+            width:100%; height:100%;
+            opacity:.07; pointer-events:none;
         }
         .hero-overlay {
-            position: absolute; inset: 0;
+            position:absolute; inset:0;
             background:
-                radial-gradient(ellipse 70% 70% at 75% 40%, rgba(0,208,132,0.07) 0%, transparent 65%),
-                radial-gradient(ellipse 50% 50% at 20% 80%, rgba(0,100,200,0.05) 0%, transparent 60%),
-                linear-gradient(to bottom, transparent 55%, var(--bg) 100%);
+                radial-gradient(ellipse 75% 70% at 70% 40%, rgba(0,208,132,.06) 0%,transparent 65%),
+                radial-gradient(ellipse 50% 50% at 15% 80%, rgba(0,100,200,.05) 0%,transparent 60%),
+                linear-gradient(to bottom, rgba(8,12,16,.5) 0%, transparent 35%, var(--bg) 100%);
         }
         .hero-inner {
-            position: relative; z-index: 1;
-            max-width: 1140px; margin: 0 auto; width: 100%;
-            display: grid; grid-template-columns: 1fr 420px;
-            gap: 64px; align-items: center;
+            position:relative; z-index:1;
+            max-width:1140px; margin:0 auto; width:100%;
+            display:grid; grid-template-columns:1fr 420px;
+            gap:64px; align-items:center;
         }
-
-        /* badge */
         .badge {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: rgba(0,208,132,0.1);
-            border: 1px solid rgba(0,208,132,0.28);
-            color: var(--green);
-            padding: 7px 16px; border-radius: 100px;
-            font-size: 0.78rem; font-weight: 700;
-            letter-spacing: 0.09em; text-transform: uppercase;
-            margin-bottom: 22px;
+            display:inline-flex; align-items:center; gap:8px;
+            background:rgba(0,208,132,.1);
+            border:1px solid rgba(0,208,132,.28);
+            color:var(--green);
+            padding:7px 16px; border-radius:100px;
+            font-size:.78rem; font-weight:700;
+            letter-spacing:.09em; text-transform:uppercase; margin-bottom:22px;
         }
         .badge-dot {
-            width: 6px; height: 6px;
-            background: var(--green); border-radius: 50%;
+            width:6px; height:6px; background:var(--green); border-radius:50%;
             animation: blink 2s infinite;
         }
-        @keyframes blink {
-            0%,100% { opacity: 1; transform: scale(1); }
-            50%      { opacity: 0.4; transform: scale(1.6); }
-        }
-
+        @keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.6)} }
         h1 {
-            font-size: clamp(2.3rem, 4.2vw, 3.6rem);
-            font-weight: 900; line-height: 1.08;
-            letter-spacing: -0.025em; margin-bottom: 22px;
+            font-size:clamp(2.3rem,4.2vw,3.6rem);
+            font-weight:900; line-height:1.08;
+            letter-spacing:-.025em; margin-bottom:22px;
         }
-        h1 em { color: var(--green); font-style: normal; }
-
-        .hero-sub {
-            font-size: 1.1rem; color: var(--text-muted);
-            line-height: 1.65; margin-bottom: 34px;
-            max-width: 500px;
-        }
-        .check-list {
-            list-style: none;
-            display: flex; flex-direction: column; gap: 11px;
-            margin-bottom: 38px;
-        }
-        .check-list li {
-            display: flex; align-items: center; gap: 11px;
-            font-size: 0.97rem;
-        }
+        h1 em { color:var(--green); font-style:normal; }
+        .hero-sub { font-size:1.1rem; color:var(--text-muted); line-height:1.65; margin-bottom:34px; max-width:500px; }
+        .check-list { list-style:none; display:flex; flex-direction:column; gap:11px; margin-bottom:38px; }
+        .check-list li { display:flex; align-items:center; gap:11px; font-size:.97rem; }
         .check-list li::before {
-            content: '✓';
-            width: 22px; height: 22px; flex-shrink: 0;
-            background: var(--green); color: #000;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.68rem; font-weight: 900;
+            content:'✓'; width:22px; height:22px; flex-shrink:0;
+            background:var(--green); color:#000; border-radius:50%;
+            display:flex; align-items:center; justify-content:center;
+            font-size:.68rem; font-weight:900;
         }
-
         .cta-primary {
-            display: inline-flex; align-items: center; gap: 10px;
-            background: var(--green); color: #000;
-            padding: 17px 38px; border-radius: 8px;
-            font-weight: 900; font-size: 1rem;
-            text-decoration: none; text-transform: uppercase;
-            letter-spacing: 0.07em;
-            transition: all 0.25s;
-            box-shadow: 0 0 40px rgba(0,208,132,0.3);
-            position: relative; overflow: hidden;
+            display:inline-flex; align-items:center; gap:10px;
+            background:var(--green); color:#000;
+            padding:17px 38px; border-radius:8px;
+            font-weight:900; font-size:1rem;
+            text-decoration:none; text-transform:uppercase; letter-spacing:.07em;
+            transition:all .25s;
+            box-shadow:0 0 40px rgba(0,208,132,.3);
+            position:relative; overflow:hidden;
         }
         .cta-primary::after {
-            content: '';
-            position: absolute; inset: 0;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.18), transparent);
-            transform: translateX(-120%);
-            transition: transform 0.45s;
+            content:''; position:absolute; inset:0;
+            background:linear-gradient(to right,transparent,rgba(255,255,255,.18),transparent);
+            transform:translateX(-120%); transition:transform .45s;
         }
-        .cta-primary:hover { background: #00f0a0; transform: translateY(-2px); box-shadow: 0 0 60px rgba(0,208,132,0.5); }
-        .cta-primary:hover::after { transform: translateX(120%); }
-        .cta-arrow { transition: transform 0.25s; }
-        .cta-primary:hover .cta-arrow { transform: translateX(4px); }
-        .cta-note { font-size: 0.79rem; color: var(--text-muted); margin-top: 13px; }
+        .cta-primary:hover { background:#00f0a0; transform:translateY(-2px); box-shadow:0 0 60px rgba(0,208,132,.5); }
+        .cta-primary:hover::after { transform:translateX(120%); }
+        .cta-arrow { transition:transform .25s; }
+        .cta-primary:hover .cta-arrow { transform:translateX(4px); }
+        .cta-note { font-size:.79rem; color:var(--text-muted); margin-top:13px; }
 
         /* ===== COUNTDOWN CARD ===== */
         .cd-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(0,208,132,0.18);
-            border-radius: 18px;
-            padding: 32px;
-            box-shadow: 0 8px 80px rgba(0,208,132,0.04), 0 0 0 1px rgba(255,255,255,0.03);
+            background:rgba(13,17,23,.9);
+            backdrop-filter:blur(24px);
+            border:1px solid rgba(0,208,132,.18);
+            border-radius:18px; padding:32px;
+            box-shadow:0 8px 80px rgba(0,208,132,.06),0 0 0 1px rgba(255,255,255,.03);
         }
-        .ev-label {
-            font-size: 0.73rem; text-transform: uppercase;
-            letter-spacing: 0.14em; color: var(--green);
-            font-weight: 800; margin-bottom: 7px;
-        }
-        .ev-date {
-            font-size: 1.45rem; font-weight: 900; margin-bottom: 4px;
-        }
-        .ev-time {
-            font-size: 0.92rem; color: var(--text-muted);
-            margin-bottom: 24px; padding-bottom: 24px;
-            border-bottom: 1px solid rgba(255,255,255,0.07);
-        }
-        .cd-label {
-            font-size: 0.72rem; text-transform: uppercase;
-            letter-spacing: 0.1em; color: var(--text-muted);
-            margin-bottom: 12px;
-        }
-        .countdown {
-            display: grid; grid-template-columns: repeat(4, 1fr);
-            gap: 8px; margin-bottom: 24px;
-        }
-        .cu {
-            background: rgba(0,208,132,0.07);
-            border: 1px solid rgba(0,208,132,0.18);
-            border-radius: 9px; padding: 13px 6px 9px;
-            text-align: center;
-        }
-        .cu-num {
-            font-size: 1.85rem; font-weight: 900; line-height: 1;
-            color: var(--green); font-variant-numeric: tabular-nums;
-        }
-        .cu-txt {
-            font-size: 0.58rem; text-transform: uppercase;
-            letter-spacing: 0.1em; color: var(--text-muted); margin-top: 4px;
-        }
-        .spots-row {
-            display: flex; justify-content: space-between;
-            font-size: 0.8rem; margin-bottom: 8px;
-        }
-        .spots-row strong { color: var(--gold); }
-        .bar-bg {
-            height: 6px; background: rgba(255,255,255,0.07);
-            border-radius: 10px; overflow: hidden; margin-bottom: 22px;
-        }
-        .bar-fill {
-            height: 100%;
-            background: linear-gradient(to right, var(--green), #00b8d4);
-            border-radius: 10px; width: 0;
-            transition: width 2.2s cubic-bezier(0.22,1,0.36,1);
-        }
-        .cd-cta {
-            display: block; text-align: center;
-            background: var(--green); color: #000;
-            padding: 15px; border-radius: 8px;
-            font-weight: 900; font-size: 0.92rem;
-            text-decoration: none; text-transform: uppercase;
-            letter-spacing: 0.06em;
-            transition: background 0.2s, box-shadow 0.2s;
-        }
-        .cd-cta:hover { background: #00f0a0; box-shadow: 0 0 30px rgba(0,208,132,0.3); }
+        .ev-label { font-size:.73rem; text-transform:uppercase; letter-spacing:.14em; color:var(--green); font-weight:800; margin-bottom:7px; }
+        .ev-date { font-size:1.45rem; font-weight:900; margin-bottom:4px; }
+        .ev-time { font-size:.92rem; color:var(--text-muted); margin-bottom:24px; padding-bottom:24px; border-bottom:1px solid rgba(255,255,255,.07); }
+        .cd-label { font-size:.72rem; text-transform:uppercase; letter-spacing:.1em; color:var(--text-muted); margin-bottom:12px; }
+        .countdown { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:24px; }
+        .cu { background:rgba(0,208,132,.07); border:1px solid rgba(0,208,132,.18); border-radius:9px; padding:13px 6px 9px; text-align:center; }
+        .cu-num { font-size:1.85rem; font-weight:900; line-height:1; color:var(--green); font-variant-numeric:tabular-nums; }
+        .cu-txt { font-size:.58rem; text-transform:uppercase; letter-spacing:.1em; color:var(--text-muted); margin-top:4px; }
+        .spots-row { display:flex; justify-content:space-between; font-size:.8rem; margin-bottom:8px; }
+        .spots-row strong { color:var(--gold); }
+        .bar-bg { height:6px; background:rgba(255,255,255,.07); border-radius:10px; overflow:hidden; margin-bottom:22px; }
+        .bar-fill { height:100%; background:linear-gradient(to right,var(--green),#00b8d4); border-radius:10px; width:0; transition:width 2.2s cubic-bezier(.22,1,.36,1); }
+        .cd-cta { display:block; text-align:center; background:var(--green); color:#000; padding:15px; border-radius:8px; font-weight:900; font-size:.92rem; text-decoration:none; text-transform:uppercase; letter-spacing:.06em; transition:background .2s,box-shadow .2s; }
+        .cd-cta:hover { background:#00f0a0; box-shadow:0 0 30px rgba(0,208,132,.3); }
 
         /* ===== LOGOS ===== */
-        .logos-bar {
-            padding: 26px 40px;
-            background: var(--bg-card);
-            border-top: 1px solid rgba(255,255,255,0.04);
-            border-bottom: 1px solid rgba(255,255,255,0.04);
-        }
-        .logos-inner {
-            max-width: 1140px; margin: 0 auto;
-            display: flex; align-items: center;
-            justify-content: center; gap: 48px; flex-wrap: wrap;
-        }
-        .logos-caption {
-            font-size: 0.72rem; text-transform: uppercase;
-            letter-spacing: 0.13em; color: var(--text-muted);
-        }
-        .logo-chip {
-            font-size: 0.82rem; font-weight: 700;
-            color: rgba(255,255,255,0.28); letter-spacing: 0.04em;
-            text-transform: uppercase;
-            transition: color 0.2s;
-        }
-        .logo-chip:hover { color: rgba(255,255,255,0.55); }
+        .logos-bar { padding:26px 40px; background:var(--bg-card); border-top:1px solid rgba(255,255,255,.04); border-bottom:1px solid rgba(255,255,255,.04); }
+        .logos-inner { max-width:1140px; margin:0 auto; display:flex; align-items:center; justify-content:center; gap:48px; flex-wrap:wrap; }
+        .logos-caption { font-size:.72rem; text-transform:uppercase; letter-spacing:.13em; color:var(--text-muted); }
+        .logo-chip { font-size:.82rem; font-weight:700; color:rgba(255,255,255,.28); letter-spacing:.04em; text-transform:uppercase; transition:color .2s; }
+        .logo-chip:hover { color:rgba(255,255,255,.55); }
 
         /* ===== SECTIONS ===== */
-        section { padding: 96px 40px; }
-        .inner { max-width: 1140px; margin: 0 auto; }
+        section { padding:96px 40px; }
+        .inner { max-width:1140px; margin:0 auto; }
+        .tag { display:inline-block; font-size:.73rem; text-transform:uppercase; letter-spacing:.16em; color:var(--green); font-weight:800; margin-bottom:14px; }
+        h2 { font-size:clamp(1.9rem,3.2vw,2.9rem); font-weight:900; line-height:1.12; letter-spacing:-.022em; margin-bottom:16px; }
+        h2 em { color:var(--green); font-style:normal; }
+        .sub { font-size:1.05rem; color:var(--text-muted); line-height:1.68; max-width:580px; margin-bottom:56px; }
 
-        .tag {
-            display: inline-block;
-            font-size: 0.73rem; text-transform: uppercase;
-            letter-spacing: 0.16em; color: var(--green);
-            font-weight: 800; margin-bottom: 14px;
+        /* ===== JOURNEY (SCROLL-SCRUBBED) ===== */
+        #journey {
+            height: 280vh;
+            position: relative;
+            padding: 0;
         }
-        h2 {
-            font-size: clamp(1.9rem, 3.2vw, 2.9rem);
-            font-weight: 900; line-height: 1.12;
-            letter-spacing: -0.022em; margin-bottom: 16px;
+        .journey-sticky {
+            position: sticky;
+            top: 100px;
+            height: calc(100vh - 100px);
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 56px;
+            align-items: center;
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 40px;
         }
-        h2 em { color: var(--green); font-style: normal; }
-        .sub {
-            font-size: 1.05rem; color: var(--text-muted);
-            line-height: 1.68; max-width: 580px;
-            margin-bottom: 56px;
+        .journey-text {
+            position: relative;
+            height: 260px;
+        }
+        .j-phase {
+            position: absolute; top: 0; left: 0;
+            opacity: 0; transform: translateY(18px);
+            transition: opacity .5s cubic-bezier(.22,1,.36,1), transform .5s cubic-bezier(.22,1,.36,1);
+            pointer-events: none;
+        }
+        .j-phase.active { opacity: 1; transform: none; }
+        .j-phase .tag { display: inline-block; margin-bottom: 14px; }
+        .j-phase h2 { font-size: clamp(1.65rem,2.6vw,2.2rem); margin-bottom: 16px; }
+        .j-phase p { font-size: .98rem; color: var(--text-muted); line-height: 1.72; max-width: 400px; }
+        .j-dots {
+            position: absolute; bottom: -32px; left: 0;
+            display: flex; gap: 8px; align-items: center;
+        }
+        .j-dot {
+            width: 7px; height: 7px; border-radius: 50%;
+            background: rgba(255,255,255,.15);
+            transition: background .3s, transform .3s, width .3s;
+        }
+        .j-dot.active { background: var(--green); transform: scale(1.4); }
+
+        /* chart container */
+        .journey-chart {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 18px;
+            padding: 22px 22px 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        .journey-chart::before {
+            content:'';
+            position:absolute; inset:0;
+            background:
+                repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.02) 39px,rgba(255,255,255,.02) 40px),
+                repeating-linear-gradient(90deg,transparent,transparent 69px,rgba(255,255,255,.02) 69px,rgba(255,255,255,.02) 70px);
+            pointer-events:none;
+        }
+        .jc-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 16px; position: relative; z-index: 1;
+        }
+        .jc-pair { font-size: .82rem; font-weight: 700; color: var(--text); }
+        .jc-sub { font-size: .7rem; color: var(--text-muted); margin-top: 2px; }
+        .jc-tfs { display: flex; gap: 5px; }
+        .tf { font-size: .65rem; padding: 3px 8px; border-radius: 4px; background: rgba(255,255,255,.05); color: var(--text-muted); border: none; cursor: pointer; font-family: inherit; }
+        .tf.on { background: rgba(0,208,132,.15); color: var(--green); }
+        #journeySvg { width: 100%; display: block; position: relative; z-index: 1; }
+        .jc-footer {
+            display: flex; align-items: center; gap: 10px;
+            margin-top: 14px; position: relative; z-index: 1;
+        }
+        .jc-price {
+            font-size: 1.1rem; font-weight: 900; color: var(--green);
+            font-variant-numeric: tabular-nums;
+            transition: color .3s;
+        }
+        .jc-change {
+            font-size: .72rem; font-weight: 700; padding: 2px 7px; border-radius: 4px;
+            transition: all .3s;
         }
 
         /* ===== PROBLEM ===== */
-        #problem { background: var(--bg-card); }
-        .problems-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;
-        }
-        .prob-card {
-            background: var(--bg);
-            border: 1px solid rgba(255,255,255,0.055);
-            border-radius: 14px; padding: 28px 24px;
-            transition: border-color 0.3s, transform 0.35s;
-        }
-        .prob-card:hover {
-            border-color: rgba(0,208,132,0.22);
-            transform: translateY(-5px);
-        }
-        .prob-icon { font-size: 2.1rem; margin-bottom: 16px; }
-        .prob-card h3 { font-size: 1.04rem; font-weight: 700; margin-bottom: 10px; }
-        .prob-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+        #problem { background:var(--bg-card); }
+        .problems-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+        .prob-card { background:var(--bg); border:1px solid rgba(255,255,255,.055); border-radius:14px; padding:28px 24px; transition:border-color .3s,transform .35s; }
+        .prob-card:hover { border-color:rgba(0,208,132,.22); transform:translateY(-5px); }
+        .prob-icon { font-size:2.1rem; margin-bottom:16px; }
+        .prob-card h3 { font-size:1.04rem; font-weight:700; margin-bottom:10px; }
+        .prob-card p { font-size:.88rem; color:var(--text-muted); line-height:1.6; }
 
         /* ===== LEARN ===== */
-        .learn-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-        }
-        .learn-item {
-            display: flex; gap: 16px; align-items: flex-start;
-            background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.055);
-            border-radius: 12px; padding: 22px;
-            transition: border-color 0.3s, transform 0.3s;
-        }
-        .learn-item:hover {
-            border-color: rgba(0,208,132,0.22);
-            transform: translateY(-3px);
-        }
-        .learn-num {
-            width: 34px; height: 34px; flex-shrink: 0;
-            background: rgba(0,208,132,0.1);
-            border: 1px solid rgba(0,208,132,0.25);
-            border-radius: 8px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.72rem; font-weight: 900; color: var(--green);
-        }
-        .learn-item h3 { font-size: 0.94rem; font-weight: 700; margin-bottom: 6px; }
-        .learn-item p { font-size: 0.84rem; color: var(--text-muted); line-height: 1.55; }
+        .learn-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+        .learn-item { display:flex; gap:16px; align-items:flex-start; background:var(--bg-card); border:1px solid rgba(255,255,255,.055); border-radius:12px; padding:22px; transition:border-color .3s,transform .3s; }
+        .learn-item:hover { border-color:rgba(0,208,132,.22); transform:translateY(-3px); }
+        .learn-num { width:34px; height:34px; flex-shrink:0; background:rgba(0,208,132,.1); border:1px solid rgba(0,208,132,.25); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:900; color:var(--green); }
+        .learn-item h3 { font-size:.94rem; font-weight:700; margin-bottom:6px; }
+        .learn-item p { font-size:.84rem; color:var(--text-muted); line-height:1.55; }
 
         /* ===== FOUNDER ===== */
-        #founder { background: var(--bg-card); }
-        .founder-grid {
-            display: grid; grid-template-columns: 360px 1fr;
-            gap: 72px; align-items: center;
-        }
-        .founder-img-wrap { position: relative; }
+        #founder { background:var(--bg-card); }
+        .founder-grid { display:grid; grid-template-columns:360px 1fr; gap:72px; align-items:center; }
+        .founder-img-wrap { position:relative; }
         .founder-photo-box {
-            width: 100%; aspect-ratio: 3/4;
-            border-radius: 18px;
-            border: 1px solid rgba(0,208,132,0.18);
-            background: linear-gradient(160deg, #0d1820, #0a1a10);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 4.5rem; overflow: hidden;
-            position: relative;
+            width:100%; aspect-ratio:3/4;
+            border-radius:18px;
+            border:1px solid rgba(0,208,132,.18);
+            overflow:hidden; position:relative;
         }
-        .founder-photo-box::before {
-            content: '';
-            position: absolute; inset: 0;
-            background: linear-gradient(to top, rgba(0,208,132,0.06), transparent);
+        .founder-photo-box img {
+            width:100%; height:100%;
+            object-fit:cover; object-position:top center;
+            filter:grayscale(15%) contrast(1.05) brightness(0.95);
+            transition:transform .6s;
+        }
+        .founder-photo-box:hover img { transform:scale(1.04); }
+        .founder-photo-box::after {
+            content:''; position:absolute; inset:0;
+            background:linear-gradient(to top, rgba(0,208,132,.1) 0%,rgba(0,0,0,.3) 30%,transparent 60%);
+            pointer-events:none;
         }
         .founder-award {
-            position: absolute; bottom: -14px; right: -14px;
-            background: var(--gold); color: #000;
-            padding: 13px 16px; border-radius: 11px;
-            font-size: 0.73rem; font-weight: 900;
-            text-align: center; line-height: 1.35;
-            max-width: 155px;
-            box-shadow: 0 4px 24px rgba(240,180,41,0.3);
+            position:absolute; bottom:-14px; right:-14px;
+            background:var(--gold); color:#000;
+            padding:13px 16px; border-radius:11px;
+            font-size:.73rem; font-weight:900;
+            text-align:center; line-height:1.35;
+            max-width:155px;
+            box-shadow:0 4px 24px rgba(240,180,41,.3);
         }
-        .f-stats {
-            display: grid; grid-template-columns: repeat(3,1fr);
-            gap: 14px; margin-bottom: 28px;
-        }
-        .f-stat {
-            background: var(--bg);
-            border: 1px solid rgba(255,255,255,0.055);
-            border-radius: 10px; padding: 16px; text-align: center;
-        }
-        .f-stat strong {
-            display: block; font-size: 1.65rem;
-            font-weight: 900; color: var(--green);
-            line-height: 1; margin-bottom: 5px;
-        }
-        .f-stat span { font-size: 0.76rem; color: var(--text-muted); }
-        .f-bio {
-            font-size: 0.94rem; color: var(--text-muted);
-            line-height: 1.72; margin-bottom: 24px;
-        }
-        .f-quote {
-            border-left: 3px solid var(--green);
-            padding: 15px 20px;
-            border-radius: 0 9px 9px 0;
-            background: var(--bg);
-            font-size: 0.97rem; font-style: italic;
-            line-height: 1.6; color: var(--text);
-        }
+        .f-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:28px; }
+        .f-stat { background:var(--bg); border:1px solid rgba(255,255,255,.055); border-radius:10px; padding:16px; text-align:center; }
+        .f-stat strong { display:block; font-size:1.65rem; font-weight:900; color:var(--green); line-height:1; margin-bottom:5px; }
+        .f-stat span { font-size:.76rem; color:var(--text-muted); }
+        .f-bio { font-size:.94rem; color:var(--text-muted); line-height:1.72; margin-bottom:24px; }
+        .f-quote { border-left:3px solid var(--green); padding:15px 20px; border-radius:0 9px 9px 0; background:var(--bg); font-size:.97rem; font-style:italic; line-height:1.6; color:var(--text); }
 
         /* ===== VIDEO ===== */
-        #vid { text-align: center; }
+        #vid { text-align:center; }
         .vid-wrap {
-            max-width: 860px; margin: 0 auto;
-            border-radius: 18px; overflow: hidden;
-            border: 1px solid rgba(0,208,132,0.18);
-            box-shadow: 0 0 90px rgba(0,208,132,0.08);
-            position: relative; aspect-ratio: 16/9;
-            background: #000;
+            max-width:860px; margin:0 auto;
+            border-radius:18px; overflow:hidden;
+            border:1px solid rgba(0,208,132,.18);
+            box-shadow:0 0 90px rgba(0,208,132,.08);
+            position:relative; aspect-ratio:16/9;
+            background:#000;
         }
         .vid-thumb {
-            width: 100%; height: 100%;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            background: linear-gradient(135deg, #080c10 0%, #0d1a14 50%, #080c10 100%);
-            cursor: pointer; position: relative; overflow: hidden;
-            transition: opacity 0.3s;
+            width:100%; height:100%;
+            display:flex; flex-direction:column;
+            align-items:center; justify-content:center;
+            cursor:pointer; position:relative; overflow:hidden;
         }
-        .vid-thumb::before {
-            content: '';
-            position: absolute; inset: 0;
-            background:
-                repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(0,208,132,0.03) 49px, rgba(0,208,132,0.03) 50px),
-                repeating-linear-gradient(90deg, transparent, transparent 49px, rgba(0,208,132,0.03) 49px, rgba(0,208,132,0.03) 50px);
+        .vid-bg {
+            position:absolute; inset:0;
+            width:100%; height:100%;
+            object-fit:cover;
+            opacity:.5;
+            transition:opacity .3s, transform .5s;
         }
+        .vid-thumb:hover .vid-bg { opacity:.65; transform:scale(1.03); }
+        .vid-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,.75),rgba(0,0,0,.2)); }
         .play-ring {
-            width: 88px; height: 88px;
-            background: var(--green); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            margin-bottom: 22px; position: relative; z-index: 1;
-            box-shadow: 0 0 50px rgba(0,208,132,0.45);
-            transition: transform 0.25s, box-shadow 0.25s;
+            width:88px; height:88px;
+            background:var(--green); border-radius:50%;
+            display:flex; align-items:center; justify-content:center;
+            margin-bottom:22px; position:relative; z-index:1;
+            box-shadow:0 0 50px rgba(0,208,132,.45);
+            transition:transform .25s,box-shadow .25s;
         }
-        .vid-thumb:hover .play-ring {
-            transform: scale(1.1);
-            box-shadow: 0 0 80px rgba(0,208,132,0.65);
-        }
-        .play-ring svg { fill: #000; width: 30px; height: 30px; margin-left: 5px; }
-        .vid-caption { font-size: 1.05rem; font-weight: 700; position: relative; z-index: 1; }
-        .vid-sub { font-size: 0.84rem; color: var(--text-muted); margin-top: 6px; position: relative; z-index: 1; }
+        .vid-thumb:hover .play-ring { transform:scale(1.1); box-shadow:0 0 80px rgba(0,208,132,.65); }
+        .play-ring svg { fill:#000; width:30px; height:30px; margin-left:5px; }
+        .vid-caption { font-size:1.05rem; font-weight:700; position:relative; z-index:1; }
+        .vid-sub { font-size:.84rem; color:rgba(255,255,255,.7); margin-top:6px; position:relative; z-index:1; }
 
         /* ===== TESTIMONIALS ===== */
-        #testi { background: var(--bg-card); }
-        .testi-grid {
-            display: grid; grid-template-columns: repeat(3,1fr); gap: 22px;
-        }
-        .testi-card {
-            background: var(--bg);
-            border: 1px solid rgba(255,255,255,0.055);
-            border-radius: 14px; padding: 28px 24px;
-            transition: border-color 0.3s, transform 0.35s;
-        }
-        .testi-card:hover {
-            border-color: rgba(0,208,132,0.2);
-            transform: translateY(-5px);
-        }
-        .stars { color: var(--gold); letter-spacing: 2px; margin-bottom: 14px; font-size: 0.88rem; }
-        .testi-text {
-            font-size: 0.89rem; line-height: 1.67;
-            color: var(--text-muted); font-style: italic;
-            margin-bottom: 20px;
-        }
-        .testi-author { display: flex; align-items: center; gap: 12px; }
-        .avatar {
-            width: 42px; height: 42px; border-radius: 50%;
-            background: var(--green); color: #000;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 900; font-size: 0.88rem; flex-shrink: 0;
-        }
-        .author-name { font-size: 0.9rem; font-weight: 700; }
-        .author-role { font-size: 0.76rem; color: var(--text-muted); }
-
-        /* proof bar */
-        .proof-row {
-            display: flex; justify-content: center;
-            gap: 72px; margin-top: 68px; flex-wrap: wrap;
-        }
-        .proof-item { text-align: center; }
-        .proof-num {
-            display: block;
-            font-size: 2.6rem; font-weight: 900;
-            color: var(--green); line-height: 1;
-        }
-        .proof-lbl {
-            font-size: 0.8rem; color: var(--text-muted);
-            margin-top: 6px; text-transform: uppercase;
-            letter-spacing: 0.09em;
-        }
+        #testi { background:var(--bg-card); }
+        .testi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+        .testi-card { background:var(--bg); border:1px solid rgba(255,255,255,.055); border-radius:14px; padding:28px 24px; transition:border-color .3s,transform .35s; }
+        .testi-card:hover { border-color:rgba(0,208,132,.2); transform:translateY(-5px); }
+        .stars { color:var(--gold); letter-spacing:2px; margin-bottom:14px; font-size:.88rem; }
+        .testi-text { font-size:.89rem; line-height:1.67; color:var(--text-muted); font-style:italic; margin-bottom:20px; }
+        .testi-author { display:flex; align-items:center; gap:12px; }
+        .avatar { width:42px; height:42px; border-radius:50%; overflow:hidden; flex-shrink:0; border:2px solid rgba(0,208,132,.25); }
+        .avatar img { width:100%; height:100%; object-fit:cover; }
+        .author-name { font-size:.9rem; font-weight:700; }
+        .author-role { font-size:.76rem; color:var(--text-muted); }
+        .proof-row { display:flex; justify-content:center; gap:72px; margin-top:68px; flex-wrap:wrap; }
+        .proof-item { text-align:center; }
+        .proof-num { display:block; font-size:2.6rem; font-weight:900; color:var(--green); line-height:1; }
+        .proof-lbl { font-size:.8rem; color:var(--text-muted); margin-top:6px; text-transform:uppercase; letter-spacing:.09em; }
 
         /* ===== FAQ ===== */
-        .faq-list {
-            max-width: 730px; margin: 0 auto;
-            display: flex; flex-direction: column; gap: 11px;
-        }
-        .faq-item {
-            background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.055);
-            border-radius: 11px; overflow: hidden;
-            transition: border-color 0.3s;
-        }
-        .faq-item.open { border-color: rgba(0,208,132,0.25); }
-        .faq-q {
-            width: 100%; background: none; border: none;
-            padding: 20px 24px;
-            display: flex; justify-content: space-between; align-items: center;
-            color: var(--text); font-size: 0.95rem; font-weight: 600;
-            cursor: pointer; text-align: left; gap: 16px;
-            font-family: inherit;
-        }
-        .faq-q:hover { background: rgba(255,255,255,0.02); }
-        .faq-icon {
-            width: 26px; height: 26px; flex-shrink: 0;
-            background: rgba(0,208,132,0.09);
-            border: 1px solid rgba(0,208,132,0.28);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.1rem; color: var(--green);
-            transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
-            line-height: 1;
-        }
-        .faq-item.open .faq-icon { transform: rotate(45deg); }
-        .faq-a {
-            max-height: 0; overflow: hidden;
-            transition: max-height 0.42s cubic-bezier(0.22,1,0.36,1);
-        }
-        .faq-item.open .faq-a { max-height: 280px; }
-        .faq-a-in {
-            padding: 0 24px 22px;
-            font-size: 0.89rem; color: var(--text-muted); line-height: 1.68;
-        }
+        .faq-list { max-width:730px; margin:0 auto; display:flex; flex-direction:column; gap:11px; }
+        .faq-item { background:var(--bg-card); border:1px solid rgba(255,255,255,.055); border-radius:11px; overflow:hidden; transition:border-color .3s; }
+        .faq-item.open { border-color:rgba(0,208,132,.25); }
+        .faq-q { width:100%; background:none; border:none; padding:20px 24px; display:flex; justify-content:space-between; align-items:center; color:var(--text); font-size:.95rem; font-weight:600; cursor:pointer; text-align:left; gap:16px; font-family:inherit; }
+        .faq-q:hover { background:rgba(255,255,255,.02); }
+        .faq-icon { width:26px; height:26px; flex-shrink:0; background:rgba(0,208,132,.09); border:1px solid rgba(0,208,132,.28); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.1rem; color:var(--green); transition:transform .35s cubic-bezier(.22,1,.36,1); line-height:1; }
+        .faq-item.open .faq-icon { transform:rotate(45deg); }
+        .faq-a { max-height:0; overflow:hidden; transition:max-height .42s cubic-bezier(.22,1,.36,1); }
+        .faq-item.open .faq-a { max-height:280px; }
+        .faq-a-in { padding:0 24px 22px; font-size:.89rem; color:var(--text-muted); line-height:1.68; }
 
         /* ===== FINAL CTA ===== */
-        #registro {
-            background: linear-gradient(155deg, #050c10 0%, #071510 50%, #050c10 100%);
-            border-top: 1px solid rgba(0,208,132,0.1);
-            text-align: center; position: relative; overflow: hidden;
-        }
-        #registro::before {
-            content: '';
-            position: absolute;
-            top: -250px; left: 50%; transform: translateX(-50%);
-            width: 700px; height: 700px;
-            background: radial-gradient(circle, rgba(0,208,132,0.07) 0%, transparent 65%);
-            pointer-events: none;
-        }
-        .reg-inner { position: relative; z-index: 1; }
-        .reg-inner h2 { margin: 0 auto 18px; }
-        .reg-sub {
-            font-size: 1.05rem; color: var(--text-muted);
-            max-width: 520px; margin: 0 auto 40px;
-            line-height: 1.65;
-        }
-        .trust-row {
-            display: flex; justify-content: center;
-            gap: 44px; flex-wrap: wrap;
-            margin-top: 52px;
-        }
-        .trust-item {
-            display: flex; align-items: center; gap: 8px;
-            font-size: 0.84rem; color: var(--text-muted);
-        }
+        #registro { background:linear-gradient(155deg,#050c10 0%,#071510 50%,#050c10 100%); border-top:1px solid rgba(0,208,132,.1); text-align:center; position:relative; overflow:hidden; }
+        #registro::before { content:''; position:absolute; top:-250px; left:50%; transform:translateX(-50%); width:700px; height:700px; background:radial-gradient(circle,rgba(0,208,132,.07) 0%,transparent 65%); pointer-events:none; }
+        .reg-inner { position:relative; z-index:1; }
+        .reg-inner h2 { margin:0 auto 18px; }
+        .reg-sub { font-size:1.05rem; color:var(--text-muted); max-width:520px; margin:0 auto 40px; line-height:1.65; }
+        .trust-row { display:flex; justify-content:center; gap:44px; flex-wrap:wrap; margin-top:52px; }
+        .trust-item { display:flex; align-items:center; gap:8px; font-size:.84rem; color:var(--text-muted); }
 
         /* ===== FOOTER ===== */
-        footer {
-            background: var(--bg-card);
-            border-top: 1px solid rgba(255,255,255,0.04);
-            padding: 36px 40px; text-align: center;
-            font-size: 0.79rem; color: var(--text-muted);
-            line-height: 1.75;
-        }
-        footer a { color: var(--text-muted); text-decoration: none; }
-        footer a:hover { color: var(--text); }
+        footer { background:var(--bg-card); border-top:1px solid rgba(255,255,255,.04); padding:36px 40px; text-align:center; font-size:.79rem; color:var(--text-muted); line-height:1.75; }
+        footer a { color:var(--text-muted); text-decoration:none; }
+        footer a:hover { color:var(--text); }
 
         /* ===== RESPONSIVE ===== */
-        @media (max-width: 960px) {
-            .hero-inner, .founder-grid { grid-template-columns: 1fr; }
-            .problems-grid, .testi-grid { grid-template-columns: 1fr; }
-            .learn-grid { grid-template-columns: 1fr; }
-            .cd-card { max-width: 420px; }
-            .founder-img-wrap { max-width: 300px; margin: 0 auto 20px; }
+        @media (max-width:960px) {
+            .hero-inner, .founder-grid { grid-template-columns:1fr; }
+            .problems-grid, .testi-grid { grid-template-columns:1fr; }
+            .learn-grid { grid-template-columns:1fr; }
+            .cd-card { max-width:420px; }
+            .founder-img-wrap { max-width:300px; margin:0 auto 20px; }
+            .journey-sticky { grid-template-columns:1fr; gap:32px; }
+            #journey { height: 350vh; }
         }
-        @media (max-width: 640px) {
-            section { padding: 64px 22px; }
-            header { padding: 13px 22px; }
-            .header-btn { display: none; }
-            h1 { font-size: 2rem; }
-            .proof-row { gap: 40px; }
+        @media (max-width:640px) {
+            section { padding:64px 22px; }
+            header { padding:13px 22px; }
+            .header-btn { display:none; }
+            h1 { font-size:2rem; }
+            .proof-row { gap:40px; }
+            .ticker-bar { display:none; }
+            header { top:0; }
         }
     </style>
 </head>
 <body>
+
+<!-- ═══════════════════════ TICKER ═══════════════════════ -->
+<div class="ticker-bar">
+    <div class="ticker-track">
+        <!-- set 1 -->
+        <div class="tick"><span class="tick-sym">EUR/USD</span><span class="tick-val">1.0842</span><span class="tick-chg up">+0.18%</span></div>
+        <div class="tick"><span class="tick-sym">BTC/USD</span><span class="tick-val">67,430</span><span class="tick-chg up">+2.41%</span></div>
+        <div class="tick"><span class="tick-sym">S&amp;P 500</span><span class="tick-val">5,304.72</span><span class="tick-chg up">+0.37%</span></div>
+        <div class="tick"><span class="tick-sym">NQ100</span><span class="tick-val">18,742</span><span class="tick-chg dn">-0.12%</span></div>
+        <div class="tick"><span class="tick-sym">GBP/USD</span><span class="tick-val">1.2710</span><span class="tick-chg up">+0.09%</span></div>
+        <div class="tick"><span class="tick-sym">XAU/USD</span><span class="tick-val">2,341.50</span><span class="tick-chg up">+0.54%</span></div>
+        <div class="tick"><span class="tick-sym">USD/JPY</span><span class="tick-val">156.84</span><span class="tick-chg dn">-0.22%</span></div>
+        <div class="tick"><span class="tick-sym">CRUDE OIL</span><span class="tick-val">82.15</span><span class="tick-chg dn">-0.38%</span></div>
+        <div class="tick"><span class="tick-sym">ETH/USD</span><span class="tick-val">3,124</span><span class="tick-chg up">+1.87%</span></div>
+        <div class="tick"><span class="tick-sym">USD/CAD</span><span class="tick-val">1.3621</span><span class="tick-chg up">+0.05%</span></div>
+        <!-- set 2 (duplicate for seamless loop) -->
+        <div class="tick"><span class="tick-sym">EUR/USD</span><span class="tick-val">1.0842</span><span class="tick-chg up">+0.18%</span></div>
+        <div class="tick"><span class="tick-sym">BTC/USD</span><span class="tick-val">67,430</span><span class="tick-chg up">+2.41%</span></div>
+        <div class="tick"><span class="tick-sym">S&amp;P 500</span><span class="tick-val">5,304.72</span><span class="tick-chg up">+0.37%</span></div>
+        <div class="tick"><span class="tick-sym">NQ100</span><span class="tick-val">18,742</span><span class="tick-chg dn">-0.12%</span></div>
+        <div class="tick"><span class="tick-sym">GBP/USD</span><span class="tick-val">1.2710</span><span class="tick-chg up">+0.09%</span></div>
+        <div class="tick"><span class="tick-sym">XAU/USD</span><span class="tick-val">2,341.50</span><span class="tick-chg up">+0.54%</span></div>
+        <div class="tick"><span class="tick-sym">USD/JPY</span><span class="tick-val">156.84</span><span class="tick-chg dn">-0.22%</span></div>
+        <div class="tick"><span class="tick-sym">CRUDE OIL</span><span class="tick-val">82.15</span><span class="tick-chg dn">-0.38%</span></div>
+        <div class="tick"><span class="tick-sym">ETH/USD</span><span class="tick-val">3,124</span><span class="tick-chg up">+1.87%</span></div>
+        <div class="tick"><span class="tick-sym">USD/CAD</span><span class="tick-val">1.3621</span><span class="tick-chg up">+0.05%</span></div>
+    </div>
+</div>
 
 <!-- ═══════════════════════ HEADER ═══════════════════════ -->
 <header id="hdr">
@@ -629,6 +508,7 @@
 
 <!-- ═══════════════════════ HERO ═══════════════════════ -->
 <section id="hero">
+    <div class="hero-bg" id="heroBg"></div>
     <canvas id="chartCanvas"></canvas>
     <div class="hero-overlay"></div>
     <div class="hero-inner">
@@ -638,10 +518,7 @@
                 Masterclass Gratuita · 2 horas en vivo
             </div>
             <h1>Aprendé a operar los mercados como un <em>trader profesional</em></h1>
-            <p class="hero-sub">
-                Una sesión intensiva y gratuita en la que vas a entender, en 2 horas,
-                lo que la mayoría no aprende en años de YouTube.
-            </p>
+            <p class="hero-sub">Una sesión intensiva y gratuita en la que vas a entender, en 2 horas, lo que la mayoría no aprende en años de YouTube.</p>
             <ul class="check-list">
                 <li>Estrategia real usada en Forex, Futuros y Acciones</li>
                 <li>Casos prácticos en vivo — sin teoría vacía</li>
@@ -690,13 +567,124 @@
     </div>
 </div>
 
+<!-- ═══════════════════════ JOURNEY (SCROLL-SCRUBBED) ═══════════════════════ -->
+<section id="journey">
+    <div class="journey-sticky">
+
+        <!-- left: text phases -->
+        <div class="journey-text">
+            <div class="j-phase active" id="jp0">
+                <span class="tag" style="color:var(--red)">Sin sistema</span>
+                <h2>Así pierde el <em style="color:var(--red)">95%</em> de los traders</h2>
+                <p>Operás por emoción. Comprás cuando ya subió y vendés cuando ya bajó. Sin metodología propia, el mercado siempre gana y vos siempre pagás la cuenta.</p>
+            </div>
+            <div class="j-phase" id="jp1">
+                <span class="tag" style="color:var(--gold)">El punto de quiebre</span>
+                <h2>Cuando empezás a <em>entender el mercado</em></h2>
+                <p>Dejás de seguir señales de otros. Empezás a leer el gráfico limpio, a entender el flujo del precio y a construir criterios propios para cada operación.</p>
+            </div>
+            <div class="j-phase" id="jp2">
+                <span class="tag">Con formación</span>
+                <h2>Resultados <em>consistentes</em> y repetibles</h2>
+                <p>Operás con un plan. Cada operación tiene lógica, stop y objetivo definido. El trading pasa de ser una apuesta a ser un proceso con edge real.</p>
+            </div>
+            <div class="j-dots">
+                <div class="j-dot active" id="jd0"></div>
+                <div class="j-dot" id="jd1"></div>
+                <div class="j-dot" id="jd2"></div>
+            </div>
+        </div>
+
+        <!-- right: animated SVG chart -->
+        <div class="journey-chart">
+            <div class="jc-header">
+                <div>
+                    <div class="jc-pair">EUR/USD · H1</div>
+                    <div class="jc-sub">6 meses de evolución</div>
+                </div>
+                <div class="jc-tfs">
+                    <button class="tf">1H</button>
+                    <button class="tf on">4H</button>
+                    <button class="tf">1D</button>
+                </div>
+            </div>
+
+            <svg id="journeySvg" viewBox="0 0 700 230" preserveAspectRatio="none" height="220">
+                <defs>
+                    <linearGradient id="pathGrad" x1="0" x2="700" y1="0" y2="0" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%"   stop-color="#ff4d4d"/>
+                        <stop offset="36%"  stop-color="#ff6b35"/>
+                        <stop offset="50%"  stop-color="#f0b429"/>
+                        <stop offset="64%"  stop-color="#00d084"/>
+                        <stop offset="100%" stop-color="#00d084"/>
+                    </linearGradient>
+                    <linearGradient id="areaGrad" x1="0" x2="0" y1="0" y2="1">
+                        <stop offset="0%"   stop-color="rgba(0,208,132,0.18)"/>
+                        <stop offset="100%" stop-color="rgba(0,208,132,0)"/>
+                    </linearGradient>
+                    <filter id="glow">
+                        <feGaussianBlur stdDeviation="4" result="b"/>
+                        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    </filter>
+                    <clipPath id="pathClip">
+                        <rect id="clipRect" x="0" y="0" width="0" height="230"/>
+                    </clipPath>
+                </defs>
+
+                <!-- phase dividers -->
+                <line x1="260" y1="0" x2="260" y2="210" stroke="rgba(255,255,255,0.07)" stroke-width="1" stroke-dasharray="4 4"/>
+                <line x1="430" y1="0" x2="430" y2="210" stroke="rgba(255,255,255,0.07)" stroke-width="1" stroke-dasharray="4 4"/>
+
+                <!-- x-axis labels -->
+                <text x="10"  y="222" fill="rgba(255,77,77,0.45)"    font-size="8.5" font-family="Inter,sans-serif" font-weight="600" letter-spacing="0.06em">SIN SISTEMA</text>
+                <text x="272" y="222" fill="rgba(240,180,41,0.5)"    font-size="8.5" font-family="Inter,sans-serif" font-weight="600" letter-spacing="0.06em">APRENDIENDO</text>
+                <text x="442" y="222" fill="rgba(0,208,132,0.6)"     font-size="8.5" font-family="Inter,sans-serif" font-weight="600" letter-spacing="0.06em">CON MÉTODO</text>
+
+                <!-- area fill under curve (clipped) -->
+                <path id="journeyArea"
+                    d="M 0,120 C 18,112 32,107 52,102 C 68,97 78,112 98,128 C 113,141 123,155 142,170 C 155,180 165,190 182,198 C 196,204 208,210 223,208 C 236,206 246,201 262,198 C 276,195 286,191 302,189 C 315,187 325,190 341,188 C 355,186 365,178 382,181 C 395,184 406,170 422,162 C 437,154 447,140 464,130 C 478,122 490,108 505,97 C 519,86 532,74 548,64 C 561,56 573,44 590,37 C 605,31 620,24 643,18 C 658,14 676,10 700,6 L 700,230 L 0,230 Z"
+                    fill="url(#areaGrad)"
+                    clip-path="url(#pathClip)"
+                    opacity="0.6"
+                />
+
+                <!-- guide path (always visible, very faint) -->
+                <path id="journeyGuide"
+                    d="M 0,120 C 18,112 32,107 52,102 C 68,97 78,112 98,128 C 113,141 123,155 142,170 C 155,180 165,190 182,198 C 196,204 208,210 223,208 C 236,206 246,201 262,198 C 276,195 286,191 302,189 C 315,187 325,190 341,188 C 355,186 365,178 382,181 C 395,184 406,170 422,162 C 437,154 447,140 464,130 C 478,122 490,108 505,97 C 519,86 532,74 548,64 C 561,56 573,44 590,37 C 605,31 620,24 643,18 C 658,14 676,10 700,6"
+                    fill="none"
+                    stroke="rgba(255,255,255,0.06)"
+                    stroke-width="2"
+                />
+
+                <!-- animated main path -->
+                <path id="journeyPath"
+                    d="M 0,120 C 18,112 32,107 52,102 C 68,97 78,112 98,128 C 113,141 123,155 142,170 C 155,180 165,190 182,198 C 196,204 208,210 223,208 C 236,206 246,201 262,198 C 276,195 286,191 302,189 C 315,187 325,190 341,188 C 355,186 365,178 382,181 C 395,184 406,170 422,162 C 437,154 447,140 464,130 C 478,122 490,108 505,97 C 519,86 532,74 548,64 C 561,56 573,44 590,37 C 605,31 620,24 643,18 C 658,14 676,10 700,6"
+                    fill="none"
+                    stroke="url(#pathGrad)"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                />
+
+                <!-- moving dot -->
+                <circle id="journeyDot"  cx="0" cy="120" r="6"   fill="var(--green)" filter="url(#glow)" opacity="0"/>
+                <circle id="journeyDotC" cx="0" cy="120" r="2.5" fill="#fff" opacity="0"/>
+            </svg>
+
+            <div class="jc-footer">
+                <span class="jc-price" id="jcPrice">1.0628</span>
+                <span class="jc-change dn" id="jcChange">-2.18%</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
 <!-- ═══════════════════════ PROBLEM ═══════════════════════ -->
 <section id="problem">
     <div class="inner">
         <span class="tag reveal">¿Te identificás?</span>
         <h2 class="reveal">Los errores que frenan a la <em>mayoría</em></h2>
         <p class="sub reveal">Antes de arrancar, necesitás saber qué NO hacer. Estos son los tres obstáculos que atacamos en la Masterclass.</p>
-
         <div class="problems-grid">
             <div class="prob-card reveal d1">
                 <div class="prob-icon">📉</div>
@@ -723,50 +711,13 @@
         <span class="tag reveal">Programa</span>
         <h2 class="reveal">Lo que vas a aprender <em>en vivo</em></h2>
         <p class="sub reveal">Dos horas intensas. Sin relleno. Sin vender. Pura formación práctica con ejemplos reales de mercado.</p>
-
         <div class="learn-grid">
-            <div class="learn-item reveal d1">
-                <div class="learn-num">01</div>
-                <div>
-                    <h3>Cómo funciona el mercado de verdad</h3>
-                    <p>Quién mueve los precios, cómo se forman las tendencias y por qué el 95% pierde. El marco que todo trader necesita.</p>
-                </div>
-            </div>
-            <div class="learn-item reveal d2">
-                <div class="learn-num">02</div>
-                <div>
-                    <h3>Price Action sin indicadores</h3>
-                    <p>Leer el gráfico limpio. Zonas de soporte/resistencia clave y estructura del precio para anticipar movimientos.</p>
-                </div>
-            </div>
-            <div class="learn-item reveal d3">
-                <div class="learn-num">03</div>
-                <div>
-                    <h3>Gestión de riesgo que protege tu capital</h3>
-                    <p>R:R, sizing de posición y stop loss estratégico. La diferencia real entre traders que sobreviven y los que no.</p>
-                </div>
-            </div>
-            <div class="learn-item reveal d4">
-                <div class="learn-num">04</div>
-                <div>
-                    <h3>Un setup de entrada completo en vivo</h3>
-                    <p>Análisis, entrada, stop, objetivo y gestión de la operación — visto de principio a fin con un ejemplo real.</p>
-                </div>
-            </div>
-            <div class="learn-item reveal d5">
-                <div class="learn-num">05</div>
-                <div>
-                    <h3>Psicología: el verdadero desafío</h3>
-                    <p>Por qué el trading empieza en la mente. Cómo construir disciplina operativa y eliminar las decisiones emocionales.</p>
-                </div>
-            </div>
-            <div class="learn-item reveal d6">
-                <div class="learn-num">06</div>
-                <div>
-                    <h3>Tu plan de acción a 30 días</h3>
-                    <p>Cómo arrancar (o reempezar) con un plan concreto, sin importar tu nivel actual ni quemar capital desde el día 1.</p>
-                </div>
-            </div>
+            <div class="learn-item reveal d1"><div class="learn-num">01</div><div><h3>Cómo funciona el mercado de verdad</h3><p>Quién mueve los precios, cómo se forman las tendencias y por qué el 95% pierde. El marco que todo trader necesita.</p></div></div>
+            <div class="learn-item reveal d2"><div class="learn-num">02</div><div><h3>Price Action sin indicadores</h3><p>Leer el gráfico limpio. Zonas de soporte/resistencia clave y estructura del precio para anticipar movimientos.</p></div></div>
+            <div class="learn-item reveal d3"><div class="learn-num">03</div><div><h3>Gestión de riesgo que protege tu capital</h3><p>R:R, sizing de posición y stop loss estratégico. La diferencia real entre traders que sobreviven y los que no.</p></div></div>
+            <div class="learn-item reveal d4"><div class="learn-num">04</div><div><h3>Un setup de entrada completo en vivo</h3><p>Análisis, entrada, stop, objetivo y gestión de la operación — visto de principio a fin con un ejemplo real.</p></div></div>
+            <div class="learn-item reveal d5"><div class="learn-num">05</div><div><h3>Psicología: el verdadero desafío</h3><p>Por qué el trading empieza en la mente. Cómo construir disciplina operativa y eliminar las decisiones emocionales.</p></div></div>
+            <div class="learn-item reveal d6"><div class="learn-num">06</div><div><h3>Tu plan de acción a 30 días</h3><p>Cómo arrancar (o reempezar) con un plan concreto, sin importar tu nivel actual ni quemar capital desde el día 1.</p></div></div>
         </div>
     </div>
 </section>
@@ -777,28 +728,25 @@
         <div class="founder-grid">
             <div class="founder-img-wrap reveal-left">
                 <div class="founder-photo-box">
-                    <span>👨‍💼</span>
+                    <img
+                        src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=720&q=80"
+                        alt="Esteban Echevarría — Fundador MVD Trading Academy"
+                        loading="lazy"
+                    />
                 </div>
                 <div class="founder-award">🏆 Mejor Academia de Formación 2025 — Rankia</div>
             </div>
             <div class="reveal-right">
                 <span class="tag">Tu instructor</span>
                 <h2>Esteban Echevarría</h2>
-                <p class="sub" style="margin-bottom: 28px;">Fundador de MVD Trading Academy. Trader full-time desde 2012 y formador de más de 2.000 alumnos en Uruguay, Argentina y el resto de Latinoamérica.</p>
+                <p class="sub" style="margin-bottom:28px;">Fundador de MVD Trading Academy. Trader full-time desde 2012 y formador de más de 2.000 alumnos en Uruguay, Argentina y el resto de Latinoamérica.</p>
                 <div class="f-stats">
                     <div class="f-stat"><strong>12+</strong><span>Años operando full-time</span></div>
                     <div class="f-stat"><strong>2.000+</strong><span>Alumnos formados</span></div>
                     <div class="f-stat"><strong>2009</strong><span>Año de fundación</span></div>
                 </div>
-                <p class="f-bio">
-                    Empezó como la mayoría: probando robots de trading, siguiendo señales y perdiendo dinero.
-                    Después de años de prueba y error, encontró un método propio basado en price action,
-                    gestión de riesgo institucional y psicología operativa. Hoy enseña exactamente lo que aprendió —
-                    sin atajos ni promesas vacías.
-                </p>
-                <div class="f-quote">
-                    "El trading no es suerte. Es formación, método y disciplina. Y eso sí se puede enseñar."
-                </div>
+                <p class="f-bio">Empezó como la mayoría: probando robots de trading, siguiendo señales y perdiendo dinero. Después de años de prueba y error, encontró un método propio basado en price action, gestión de riesgo institucional y psicología operativa. Hoy enseña exactamente lo que aprendió — sin atajos ni promesas vacías.</p>
+                <div class="f-quote">"El trading no es suerte. Es formación, método y disciplina. Y eso sí se puede enseñar."</div>
             </div>
         </div>
     </div>
@@ -810,9 +758,15 @@
         <span class="tag reveal">Mirá antes de inscribirte</span>
         <h2 class="reveal" style="max-width:620px;margin:0 auto 14px;">Esteban te cuenta qué vas a <em>llevarte</em> de la Masterclass</h2>
         <p class="sub reveal" style="margin:0 auto 44px;">2 minutos que valen más que 2 horas de YouTube.</p>
-
         <div class="vid-wrap reveal-scale" id="vidWrap">
             <div class="vid-thumb" id="vidThumb">
+                <img
+                    class="vid-bg"
+                    src="https://images.unsplash.com/photo-1642790106117-e829e14a795f?auto=format&fit=crop&w=1200&q=80"
+                    alt="Trading charts"
+                    loading="lazy"
+                />
+                <div class="vid-overlay"></div>
                 <div class="play-ring">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                 </div>
@@ -829,60 +783,37 @@
         <span class="tag reveal">Lo que dicen</span>
         <h2 class="reveal">+2.000 alumnos no pueden <em>equivocarse</em></h2>
         <p class="sub reveal">Resultados reales de personas que empezaron exactamente donde vos estás ahora.</p>
-
         <div class="testi-grid">
             <div class="testi-card reveal d1">
                 <div class="stars">★★★★★</div>
                 <p class="testi-text">"Excelente curso en todos los aspectos. Esteban explica con una claridad que no encontré en ningún otro lado. Muy recomendable para cualquier nivel."</p>
                 <div class="testi-author">
-                    <div class="avatar">MA</div>
-                    <div>
-                        <div class="author-name">Marcelo Albrieux</div>
-                        <div class="author-role">Alumno activo · Google Review</div>
-                    </div>
+                    <div class="avatar"><img src="https://i.pravatar.cc/84?img=33" alt="Marcelo Albrieux" loading="lazy"/></div>
+                    <div><div class="author-name">Marcelo Albrieux</div><div class="author-role">Alumno activo · Google Review</div></div>
                 </div>
             </div>
             <div class="testi-card reveal d2">
                 <div class="stars">★★★★★</div>
                 <p class="testi-text">"El 80% de lo que hago en trading hoy está basado en las enseñanzas de esta academia. Cambió completamente mi forma de ver los mercados."</p>
                 <div class="testi-author">
-                    <div class="avatar">GM</div>
-                    <div>
-                        <div class="author-name">Gonzalo Miranda</div>
-                        <div class="author-role">Trader independiente · Google Review</div>
-                    </div>
+                    <div class="avatar"><img src="https://i.pravatar.cc/84?img=12" alt="Gonzalo Miranda" loading="lazy"/></div>
+                    <div><div class="author-name">Gonzalo Miranda</div><div class="author-role">Trader independiente · Google Review</div></div>
                 </div>
             </div>
             <div class="testi-card reveal d3">
                 <div class="stars">★★★★★</div>
                 <p class="testi-text">"La mejor INVERSIÓN que hice en mi vida. No solo aprendí a operar — entendí cómo funciona el dinero. Vale cada peso y cada hora."</p>
                 <div class="testi-author">
-                    <div class="avatar">MS</div>
-                    <div>
-                        <div class="author-name">María Sánchez Giráldez</div>
-                        <div class="author-role">Inversora · Google Review</div>
-                    </div>
+                    <div class="avatar"><img src="https://i.pravatar.cc/84?img=5" alt="María Sánchez" loading="lazy"/></div>
+                    <div><div class="author-name">María Sánchez Giráldez</div><div class="author-role">Inversora · Google Review</div></div>
                 </div>
             </div>
         </div>
-
         <div class="proof-row">
-            <div class="proof-item reveal d1">
-                <span class="proof-num" data-target="2000">0</span>
-                <span class="proof-lbl">Alumnos formados</span>
-            </div>
-            <div class="proof-item reveal d2">
-                <span class="proof-num" data-target="12">0</span>
-                <span class="proof-lbl">Años de experiencia</span>
-            </div>
-            <div class="proof-item reveal d3">
-                <span class="proof-num" data-target="98">0</span>
-                <span class="proof-lbl">% lo recomendarían</span>
-            </div>
-            <div class="proof-item reveal d4">
-                <span class="proof-num" data-target="1">#</span>
-                <span class="proof-lbl">Academia en Uruguay</span>
-            </div>
+            <div class="proof-item reveal d1"><span class="proof-num" data-target="2000">0</span><span class="proof-lbl">Alumnos formados</span></div>
+            <div class="proof-item reveal d2"><span class="proof-num" data-target="12">0</span><span class="proof-lbl">Años de experiencia</span></div>
+            <div class="proof-item reveal d3"><span class="proof-num" data-target="98">0</span><span class="proof-lbl">% lo recomendarían</span></div>
+            <div class="proof-item reveal d4"><span class="proof-num" data-target="1">#</span><span class="proof-lbl">Academia en Uruguay</span></div>
         </div>
     </div>
 </section>
@@ -892,43 +823,12 @@
     <div class="inner" style="max-width:800px;margin:0 auto;">
         <span class="tag reveal" style="display:block;text-align:center;">FAQ</span>
         <h2 class="reveal" style="text-align:center;margin-bottom:44px;">Preguntas frecuentes</h2>
-
         <div class="faq-list">
-            <div class="faq-item reveal">
-                <button class="faq-q" onclick="faqToggle(this)">
-                    ¿La Masterclass es realmente gratuita?
-                    <span class="faq-icon">+</span>
-                </button>
-                <div class="faq-a"><div class="faq-a-in">Sí, 100% gratuita. No necesitás tarjeta de crédito ni ningún pago. Solo tu nombre y mail para enviarte el link de acceso a la sesión en vivo.</div></div>
-            </div>
-            <div class="faq-item reveal d1">
-                <button class="faq-q" onclick="faqToggle(this)">
-                    ¿Necesito experiencia previa en trading?
-                    <span class="faq-icon">+</span>
-                </button>
-                <div class="faq-a"><div class="faq-a-in">No. La Masterclass está diseñada para que tanto principiantes como traders con experiencia puedan aprovecharla. Empezamos desde los fundamentos y llegamos a conceptos avanzados en las 2 horas.</div></div>
-            </div>
-            <div class="faq-item reveal d2">
-                <button class="faq-q" onclick="faqToggle(this)">
-                    ¿La sesión queda grabada?
-                    <span class="faq-icon">+</span>
-                </button>
-                <div class="faq-a"><div class="faq-a-in">La sesión es en vivo y no garantizamos grabación para todos. Te recomendamos estar presente para aprovechar también el momento de preguntas y respuestas en tiempo real con Esteban.</div></div>
-            </div>
-            <div class="faq-item reveal d3">
-                <button class="faq-q" onclick="faqToggle(this)">
-                    ¿Desde qué país puedo participar?
-                    <span class="faq-icon">+</span>
-                </button>
-                <div class="faq-a"><div class="faq-a-in">Desde cualquier país de Latinoamérica. Está principalmente orientada a Uruguay y Argentina, pero participan alumnos de Chile, México, Colombia y más.</div></div>
-            </div>
-            <div class="faq-item reveal d4">
-                <button class="faq-q" onclick="faqToggle(this)">
-                    ¿Me van a ofrecer algo para comprar al final?
-                    <span class="faq-icon">+</span>
-                </button>
-                <div class="faq-a"><div class="faq-a-in">Al final vas a conocer las opciones de formación de la Academia para quienes quieran continuar. Pero la Masterclass en sí es puro contenido — podés venir, aprender todo y no comprar nada. Sin presión, en serio.</div></div>
-            </div>
+            <div class="faq-item reveal"><button class="faq-q" onclick="faqToggle(this)">¿La Masterclass es realmente gratuita?<span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-in">Sí, 100% gratuita. No necesitás tarjeta de crédito ni ningún pago. Solo tu nombre y mail para enviarte el link de acceso a la sesión en vivo.</div></div></div>
+            <div class="faq-item reveal d1"><button class="faq-q" onclick="faqToggle(this)">¿Necesito experiencia previa en trading?<span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-in">No. La Masterclass está diseñada para que tanto principiantes como traders con experiencia puedan aprovecharla. Empezamos desde los fundamentos y llegamos a conceptos avanzados en las 2 horas.</div></div></div>
+            <div class="faq-item reveal d2"><button class="faq-q" onclick="faqToggle(this)">¿La sesión queda grabada?<span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-in">La sesión es en vivo y no garantizamos grabación para todos. Te recomendamos estar presente para aprovechar también el momento de preguntas y respuestas en tiempo real con Esteban.</div></div></div>
+            <div class="faq-item reveal d3"><button class="faq-q" onclick="faqToggle(this)">¿Desde qué país puedo participar?<span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-in">Desde cualquier país de Latinoamérica. Está principalmente orientada a Uruguay y Argentina, pero participan alumnos de Chile, México, Colombia y más.</div></div></div>
+            <div class="faq-item reveal d4"><button class="faq-q" onclick="faqToggle(this)">¿Me van a ofrecer algo para comprar al final?<span class="faq-icon">+</span></button><div class="faq-a"><div class="faq-a-in">Al final vas a conocer las opciones de formación de la Academia para quienes quieran continuar. Pero la Masterclass en sí es puro contenido — podés venir, aprender todo y no comprar nada. Sin presión, en serio.</div></div></div>
         </div>
     </div>
 </section>
@@ -938,10 +838,7 @@
     <div class="inner reg-inner" style="max-width:700px;margin:0 auto;">
         <span class="tag reveal" style="display:block;text-align:center;">Último paso</span>
         <h2 class="reveal" style="text-align:center;">Reservá tu lugar — <em>es gratis</em></h2>
-        <p class="reg-sub reveal">
-            Los cupos son limitados. Cada mes se llenan en días.
-            Tomá 30 segundos y asegurá tu lugar en la próxima sesión.
-        </p>
+        <p class="reg-sub reveal">Los cupos son limitados. Cada mes se llenan en días. Tomá 30 segundos y asegurá tu lugar en la próxima sesión.</p>
         <div style="text-align:center;" class="reveal">
             <a href="https://forms.gle/LINK_AQUI" class="cta-primary" style="font-size:1.15rem;padding:20px 54px;">
                 Quiero mi lugar gratis →
@@ -960,9 +857,8 @@
 <footer>
     <strong style="color:var(--text)">MVD Trading Academy™</strong> · Academia de Inversiones registrada en Uruguay<br>
     Sede: LATU — Laboratorio Tecnológico del Uruguay<br><br>
-    <span style="font-size:0.73rem;max-width:680px;display:block;margin:0 auto;">
-        Trading en mercados financieros involucra alto riesgo de pérdida. El contenido de esta página es exclusivamente
-        educativo y no constituye asesoramiento financiero. Los resultados pasados no garantizan resultados futuros.
+    <span style="font-size:.73rem;max-width:680px;display:block;margin:0 auto;">
+        Trading en mercados financieros involucra alto riesgo de pérdida. El contenido de esta página es exclusivamente educativo y no constituye asesoramiento financiero. Los resultados pasados no garantizan resultados futuros.
     </span><br>
     <a href="#">Términos y condiciones</a> · <a href="#">Política de privacidad</a><br>
     © 2026 MVD Trading Academy. Todos los derechos reservados.
@@ -982,8 +878,7 @@ function animCount(el, target) {
     const isPct  = target === 98;
     const prefix = isHash ? '#' : '';
     const suffix = isHash ? '' : (isPct ? '%' : '+');
-    const start = performance.now();
-    const dur = 2200;
+    const start = performance.now(), dur = 2200;
     const tick = now => {
         const p = Math.min((now - start) / dur, 1);
         const ease = 1 - Math.pow(1 - p, 3);
@@ -996,8 +891,7 @@ function animCount(el, target) {
 const cntObs = new IntersectionObserver(entries => {
     entries.forEach(e => {
         if (e.isIntersecting) {
-            const t = parseInt(e.target.getAttribute('data-target'));
-            animCount(e.target, t);
+            animCount(e.target, parseInt(e.target.getAttribute('data-target')));
             cntObs.unobserve(e.target);
         }
     });
@@ -1006,17 +900,16 @@ document.querySelectorAll('[data-target]').forEach(el => cntObs.observe(el));
 
 /* ── COUNTDOWN TIMER ── */
 function nextFriday1930() {
-    const now = new Date();
-    const d = new Date(now);
+    const now = new Date(), d = new Date(now);
     const dow = d.getDay();
     let diff = (5 - dow + 7) % 7;
     if (diff === 0 && (now.getHours() > 22 || (now.getHours() === 22 && now.getMinutes() >= 30))) diff = 7;
     d.setDate(d.getDate() + diff);
-    d.setHours(22, 30, 0, 0); /* 19:30 UYT = 22:30 UTC */
+    d.setHours(22, 30, 0, 0);
     return d;
 }
 const evTarget = nextFriday1930();
-const DIAS = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+const DIAS  = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
 const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
 document.getElementById('evDate').textContent =
@@ -1027,10 +920,7 @@ function tick() {
     const close = new Date(evTarget.getTime() - 2 * 3600000);
     const rem = close - now;
     if (rem <= 0) {
-        document.getElementById('cd-d').textContent =
-        document.getElementById('cd-h').textContent =
-        document.getElementById('cd-m').textContent =
-        document.getElementById('cd-s').textContent = '00';
+        ['cd-d','cd-h','cd-m','cd-s'].forEach(id => document.getElementById(id).textContent = '00');
         return;
     }
     const p = s => String(s).padStart(2,'0');
@@ -1041,75 +931,117 @@ function tick() {
 }
 tick(); setInterval(tick, 1000);
 
-/* spots bar */
-setTimeout(() => {
-    const b = document.getElementById('spotsBar');
-    if (b) b.style.width = '77%';
-}, 900);
+setTimeout(() => { const b = document.getElementById('spotsBar'); if (b) b.style.width = '77%'; }, 900);
 
-/* ── CANDLESTICK BG ANIMATION ── */
+/* ── CANDLESTICK BG ── */
 const canvas = document.getElementById('chartCanvas');
 const ctx = canvas.getContext('2d');
-
-function resize() {
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-}
-resize();
-window.addEventListener('resize', resize);
-
-let candles = [];
-let px = 200;
+function resizeCanvas() { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; }
+resizeCanvas(); window.addEventListener('resize', resizeCanvas);
+let candles = []; let px = 200;
 for (let i = 0; i < 70; i++) {
-    const o = px;
-    const c = o + (Math.random() - 0.47) * 14;
-    const h = Math.max(o,c) + Math.random() * 7;
-    const l = Math.min(o,c) - Math.random() * 7;
-    candles.push({o,c,h,l});
-    px = c;
+    const o = px, c = o + (Math.random() - 0.47) * 14;
+    const h = Math.max(o,c) + Math.random() * 7, l = Math.min(o,c) - Math.random() * 7;
+    candles.push({o,c,h,l}); px = c;
 }
-
-let offset = 0;
+let cOffset = 0;
 function drawCandles() {
     const W = canvas.width, H = canvas.height;
-    ctx.clearRect(0, 0, W, H);
-
-    const prices = candles.flatMap(c => [c.h, c.l]);
+    ctx.clearRect(0,0,W,H);
+    const prices = candles.flatMap(c=>[c.h,c.l]);
     const lo = Math.min(...prices), hi = Math.max(...prices);
     const rng = hi - lo || 1;
-
-    const spacing = W / candles.length;
-    const cw = spacing * 0.62;
+    const spacing = W / candles.length, cw = spacing * 0.62;
     const toY = v => H - ((v - lo) / rng) * H * 0.82 - H * 0.09;
-
     candles.forEach((c, i) => {
-        const x = i * spacing + spacing / 2 - offset;
+        const x = i * spacing + spacing / 2 - cOffset;
         if (x < -spacing || x > W + spacing) return;
-        const bull = c.c >= c.o;
-        ctx.strokeStyle = ctx.fillStyle = bull ? '#00d084' : '#ff4d4d';
+        ctx.strokeStyle = ctx.fillStyle = c.c >= c.o ? '#00d084' : '#ff4d4d';
         ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(x, toY(c.h));
-        ctx.lineTo(x, toY(c.l));
-        ctx.stroke();
-        const by = Math.min(toY(c.o), toY(c.c));
-        const bh = Math.max(Math.abs(toY(c.c) - toY(c.o)), 2);
+        ctx.beginPath(); ctx.moveTo(x, toY(c.h)); ctx.lineTo(x, toY(c.l)); ctx.stroke();
+        const by = Math.min(toY(c.o), toY(c.c)), bh = Math.max(Math.abs(toY(c.c)-toY(c.o)),2);
         ctx.fillRect(x - cw/2, by, cw, bh);
     });
-
-    offset += 0.3;
-    if (offset > spacing) {
-        offset -= spacing;
-        const last = candles[candles.length - 1];
-        const np = last.c + (Math.random() - 0.47) * 14;
-        const no = last.c;
-        const nc = np;
-        candles.push({ o:no, c:nc, h: Math.max(no,nc)+Math.random()*7, l: Math.min(no,nc)-Math.random()*7 });
+    cOffset += 0.3;
+    if (cOffset > spacing) {
+        cOffset -= spacing;
+        const last = candles[candles.length-1];
+        const np = last.c + (Math.random()-0.47)*14;
+        candles.push({o:last.c,c:np,h:Math.max(last.c,np)+Math.random()*7,l:Math.min(last.c,np)-Math.random()*7});
         candles.shift();
     }
     requestAnimationFrame(drawCandles);
 }
 drawCandles();
+
+/* ── HERO PARALLAX ── */
+const heroBg = document.getElementById('heroBg');
+window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    if (heroBg) heroBg.style.transform = `translateY(${y * 0.35}px) scale(1.05)`;
+}, { passive: true });
+
+/* ── JOURNEY SCROLL-SCRUBBED ── */
+const journeySection = document.getElementById('journey');
+const journeyPath    = document.getElementById('journeyPath');
+const journeyArea    = document.getElementById('journeyArea');
+const journeyDot     = document.getElementById('journeyDot');
+const journeyDotC    = document.getElementById('journeyDotC');
+const clipRect       = document.getElementById('clipRect');
+const jcPrice        = document.getElementById('jcPrice');
+const jcChange       = document.getElementById('jcChange');
+
+const pathLen = journeyPath.getTotalLength();
+journeyPath.style.strokeDasharray  = pathLen;
+journeyPath.style.strokeDashoffset = pathLen;
+
+const prices = ['1.0628','1.0714','1.0780','1.0842','1.0891','1.0930','1.1012','1.1085','1.1142'];
+const changes = ['-2.18%','-1.45%','-0.87%','-0.32%','+0.14%','+0.51%','+0.93%','+1.44%','+2.31%'];
+
+function updateJourney() {
+    if (!journeySection) return;
+    const rect  = journeySection.getBoundingClientRect();
+    const secH  = journeySection.offsetHeight - window.innerHeight;
+    const prog  = Math.max(0, Math.min(1, -rect.top / secH));
+
+    /* draw path */
+    journeyPath.style.strokeDashoffset = pathLen * (1 - prog);
+
+    /* clip area fill */
+    const svgW = 700;
+    clipRect.setAttribute('width', svgW * prog);
+
+    /* move dot */
+    if (prog > 0.01) {
+        const pt = journeyPath.getPointAtLength(pathLen * prog);
+        journeyDot.setAttribute('cx',  pt.x);
+        journeyDot.setAttribute('cy',  pt.y);
+        journeyDotC.setAttribute('cx', pt.x);
+        journeyDotC.setAttribute('cy', pt.y);
+        journeyDot.setAttribute('opacity',  '1');
+        journeyDotC.setAttribute('opacity', '1');
+    }
+
+    /* update footer price */
+    const idx = Math.min(Math.floor(prog * prices.length), prices.length - 1);
+    jcPrice.textContent  = prices[idx];
+    jcChange.textContent = changes[idx];
+    const isUp = changes[idx].startsWith('+');
+    jcChange.className = 'jc-change ' + (isUp ? 'up' : 'dn');
+    jcPrice.style.color = isUp ? 'var(--green)' : 'var(--red)';
+
+    /* phase transitions */
+    let phase = 0;
+    if (prog >= 0.38) phase = 1;
+    if (prog >= 0.70) phase = 2;
+    for (let i = 0; i < 3; i++) {
+        document.getElementById('jp'+i).classList.toggle('active', i === phase);
+        document.getElementById('jd'+i).classList.toggle('active', i === phase);
+    }
+}
+
+window.addEventListener('scroll', updateJourney, { passive: true });
+updateJourney();
 
 /* ── FAQ ── */
 function faqToggle(btn) {
@@ -1119,10 +1051,9 @@ function faqToggle(btn) {
     if (!wasOpen) item.classList.add('open');
 }
 
-/* ── VIDEO click-to-play ── */
+/* ── VIDEO ── */
 document.getElementById('vidThumb')?.addEventListener('click', function() {
     const wrap = document.getElementById('vidWrap');
-    /* Replace with real YouTube embed URL — placeholder below */
     wrap.innerHTML = `<iframe width="100%" height="100%"
         src="https://www.youtube.com/embed/VIDEO_ID_AQUI?autoplay=1&rel=0"
         frameborder="0"
@@ -1131,7 +1062,7 @@ document.getElementById('vidThumb')?.addEventListener('click', function() {
         style="position:absolute;inset:0;width:100%;height:100%"></iframe>`;
 });
 
-/* ── HEADER scroll effect ── */
+/* ── HEADER SCROLL ── */
 window.addEventListener('scroll', () => {
     document.getElementById('hdr').style.borderBottomColor =
         window.scrollY > 60 ? 'rgba(0,208,132,0.28)' : 'rgba(0,208,132,0.12)';

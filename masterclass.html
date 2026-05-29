@@ -521,11 +521,14 @@
                 text-transform: uppercase;
                 font-weight: 500;
                 animation: scrollBounce 2.2s ease-in-out infinite;
-                position: absolute;
+                position: sticky;
                 bottom: 18px;
                 left: 50%;
                 transform: translateX(-50%);
                 white-space: nowrap;
+                width: fit-content;
+                margin-top: 16px;
+                z-index: 10;
             }
         }
         @keyframes scrollBounce {
@@ -557,6 +560,8 @@
             #journey { height: 350vh; }
         }
         @media (max-width:640px) {
+            html, body { overflow-x: hidden; }
+
             /* ── HERO MOBILE ── */
             #hero {
                 padding: 0;
@@ -834,15 +839,16 @@
             </div>
         </div>
 
-        <!-- scroll hint — solo mobile -->
-        <div class="scroll-hint">
-            <span>Seguí scrolleando</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <path d="M12 5v14M5 12l7 7 7-7"/>
-            </svg>
-        </div>
-
     </div>
+
+    <!-- scroll hint — solo mobile, fuera del sticky -->
+    <div class="scroll-hint">
+        <span>Seguí scrolleando</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M12 5v14M5 12l7 7 7-7"/>
+        </svg>
+    </div>
+
 </section>
 
 <!-- ═══════════════════════ PROBLEM ═══════════════════════ -->

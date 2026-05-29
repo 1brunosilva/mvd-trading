@@ -1160,6 +1160,70 @@ function updateJourney() {
 window.addEventListener('scroll', updateJourney, { passive: true });
 updateJourney();
 
+/* ── TICKER REAL-TIME (Finnhub) ── */
+(function(){
+    var KEY = 'd8cr56hr01qt0j1i15s0d8cr56hr01qt0j1i15sg';
+    var symbols = [
+        { label:'EUR/USD',    fh:'OANDA:EUR_USD',    dec:4 },
+        { label:'BTC/USD',    fh:'BINANCE:BTCUSDT',  dec:0 },
+        { label:'GBP/USD',    fh:'OANDA:GBP_USD',    dec:4 },
+        { label:'XAU/USD',    fh:'OANDA:XAU_USD',    dec:2 },
+        { label:'USD/JPY',    fh:'OANDA:USD_JPY',    dec:2 },
+        { label:'ETH/USD',    fh:'BINANCE:ETHUSDT',  dec:2 },
+        { label:'USD/CAD',    fh:'OANDA:USD_CAD',    dec:4 },
+        { label:'CRUDE OIL',  fh:'OANDA:BCO_USD',    dec:2 },
+    ];
+
+    function fmt(val, dec) {
+        if (val >= 1000) return val.toLocaleString('es', {minimumFractionDigits: dec, maximumFractionDigits: dec});
+        return val.toFixed(dec);
+    }
+
+    function updateTick(el, data) {
+        if (!data || !data.c) return;
+        var cur  = data.c;
+        var prev = data.pc;
+        var chg  = prev ? ((cur - prev) / prev * 100) : 0;
+        var up   = chg >= 0;
+        var sym  = el.getAttribute('data-sym');
+        var dec  = parseInt(el.getAttribute('data-dec'));
+        el.querySelector('.tick-val').textContent = fmt(cur, dec);
+        var chgEl = el.querySelector('.tick-chg');
+        chgEl.textContent = (up ? '+' : '') + chg.toFixed(2) + '%';
+        chgEl.className = 'tick-chg ' + (up ? 'up' : 'dn');
+    }
+
+    function fetchAll() {
+        // get only unique ticks (first set), duplicates update automatically
+        var ticks = document.querySelectorAll('.tick[data-sym]');
+        ticks.forEach(function(el) {
+            var fhSym = el.getAttribute('data-fh');
+            fetch('https://finnhub.io/api/v1/quote?symbol=' + fhSym + '&token=' + KEY)
+                .then(function(r){ return r.json(); })
+                .then(function(data){
+                    // update all ticks with same sym (ticker duplicates)
+                    document.querySelectorAll('.tick[data-fh="' + fhSym + '"]')
+                        .forEach(function(t){ updateTick(t, data); });
+                })
+                .catch(function(){});
+        });
+    }
+
+    // Add data attrs to tick elements
+    var trackTicks = document.querySelectorAll('.tick-sym');
+    var idx = 0;
+    document.querySelectorAll('.tick').forEach(function(el) {
+        var sym = symbols[idx % symbols.length];
+        el.setAttribute('data-sym', sym.label);
+        el.setAttribute('data-fh',  sym.fh);
+        el.setAttribute('data-dec', sym.dec);
+        idx++;
+    });
+
+    fetchAll();
+    setInterval(fetchAll, 30000); // refresh every 30s
+})();
+
 /* ── FAQ ── */
 function faqToggle(btn) {
     const item = btn.closest('.faq-item');

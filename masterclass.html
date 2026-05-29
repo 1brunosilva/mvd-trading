@@ -22,12 +22,12 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; overflow-x: clip; }
         body {
             background: var(--bg);
             color: var(--text);
             font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-            overflow-x: hidden;
+            overflow-x: clip;
         }
         h2 {
             font-family: 'DM Serif Display', Georgia, serif;
@@ -292,22 +292,23 @@
 
         /* ===== STEPPER ===== */
         #journey {
-            padding: 100px clamp(24px,6vw,80px);
+            padding: 64px clamp(24px,6vw,80px);
             background: var(--bg);
+            overflow: hidden;
         }
         .stepper-header {
             text-align: center;
-            margin-bottom: 56px;
+            margin-bottom: 32px;
         }
-        .stepper-header h2 { font-size: clamp(1.9rem,3.2vw,2.8rem); margin-bottom: 12px; }
-        .stepper-header p { color: var(--text-muted); font-size: 1rem; }
+        .stepper-header h2 { font-size: clamp(1.7rem,2.8vw,2.4rem); margin-bottom: 8px; }
+        .stepper-header p { color: var(--text-muted); font-size: .95rem; }
 
         /* tab row */
         .stepper-tabs {
             display: flex;
             justify-content: center;
             gap: 0;
-            margin-bottom: 48px;
+            margin-bottom: 28px;
             border: 1px solid rgba(255,255,255,.08);
             border-radius: 12px;
             overflow: hidden;
@@ -366,7 +367,7 @@
         /* left text */
         .s-text .s-tag { display: inline-block; margin-bottom: 18px; }
         .s-text h2 { font-size: clamp(1.7rem,2.8vw,2.3rem); margin-bottom: 18px; line-height: 1.15; }
-        .s-text p  { font-size: .98rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 28px; }
+        .s-text p  { font-size: .92rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 20px; }
         .s-stats {
             display: flex; gap: 28px;
         }
@@ -407,7 +408,7 @@
         /* progress bar */
         .stepper-progress {
             max-width: 600px;
-            margin: 40px auto 0;
+            margin: 20px auto 0;
             display: flex;
             gap: 8px;
         }

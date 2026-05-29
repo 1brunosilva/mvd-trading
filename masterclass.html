@@ -520,73 +520,59 @@
             #journey { height: 350vh; }
         }
         @media (max-width:640px) {
-            /* ── HERO MOBILE — split: video arriba, texto abajo ── */
+            /* ── HERO MOBILE ── */
             #hero {
                 padding: 0;
                 min-height: 100svh;
-                align-items: flex-end;
+                align-items: stretch;
                 flex-direction: column;
             }
-            /* video llena toda la pantalla pero el contenido visual queda en el tercio superior */
             .hero-bg-img video {
-                object-position: center 15%;
-            }
-            /* overlay mobile: más oscuro general + muy oscuro abajo */
-            .hero-overlay {
-                background:
-                    linear-gradient(to bottom,
-                        rgba(5,8,12,0.30) 0%,
-                        rgba(5,8,12,0.35) 30%,
-                        rgba(5,8,12,0.72) 52%,
-                        rgba(5,8,12,0.96) 68%,
-                        rgba(5,8,12,1.00) 100%
-                    );
+                object-position: center 20%;
             }
             .hero-content {
                 display: flex;
                 flex-direction: column;
-                align-items: flex-start;
-                text-align: left;
+                justify-content: space-between;
+                align-items: center;
+                text-align: center;
                 width: 100%;
                 max-width: none;
-                padding: 0 28px 52px;
-                flex: 0 0 auto;
+                padding: 24px 28px 44px;
+                padding-top: calc(96px + 24px);
+                flex: 1;
             }
             .hero-bottom {
                 display: flex;
                 flex-direction: column;
-                align-items: flex-start;
+                align-items: center;
                 width: 100%;
             }
             .hero-eyebrow {
-                justify-content: flex-start;
-                font-size: .60rem;
-                letter-spacing: .18em;
-                margin-bottom: 14px;
+                justify-content: center;
+                font-size: .58rem;
+                letter-spacing: .13em;
+                margin-bottom: 0;
             }
             .hero-eyebrow::before { display: none; }
             .hero-content h1 {
-                font-size: clamp(2.6rem, 10vw, 3.2rem);
-                margin-bottom: 12px;
-                line-height: 1.0;
+                font-size: clamp(2.5rem, 9.5vw, 3rem);
+                margin-bottom: 10px;
             }
             .hero-tagline {
-                font-size: .92rem;
-                line-height: 1.45;
+                font-size: .94rem;
+                line-height: 1.4;
                 margin-bottom: 28px;
-                color: rgba(232,237,242,0.70);
             }
             .cta-primary {
                 width: 100%;
                 justify-content: center;
-                padding: 18px 24px;
-                border-radius: 4px;
-                font-size: .88rem;
+                padding: 17px 24px;
+                border-radius: 3px;
             }
             .cta-note {
                 text-align: center;
                 margin-top: 14px;
-                width: 100%;
             }
 
             /* ocultar logos bar */
@@ -658,8 +644,8 @@
     </script>
     <div class="hero-overlay"></div>
     <div class="hero-content">
+        <p class="hero-eyebrow">Masterclass gratuita · En vivo · 2 horas</p>
         <div class="hero-bottom">
-            <p class="hero-eyebrow">Masterclass gratuita · En vivo · 2 horas</p>
             <h1>Operá los mercados<br><em>con seriedad.</em></h1>
             <p class="hero-tagline">
                 <strong>Estrategia real · Casos en vivo</strong><br>

@@ -505,33 +505,6 @@
         .trust-row { display:flex; justify-content:center; gap:44px; flex-wrap:wrap; margin-top:52px; }
         .trust-item { display:flex; align-items:center; gap:8px; font-size:.84rem; color:var(--text-muted); }
 
-        /* ===== SCROLL HINT ===== */
-        .scroll-hint {
-            display: none;
-        }
-        @media (max-width: 960px) {
-            .scroll-hint {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 6px;
-                color: rgba(232,237,242,0.35);
-                font-size: .72rem;
-                letter-spacing: .12em;
-                text-transform: uppercase;
-                font-weight: 500;
-                animation: scrollBounce 2.2s ease-in-out infinite;
-                position: absolute;
-                bottom: 18px;
-                left: 50%;
-                transform: translateX(-50%);
-                white-space: nowrap;
-            }
-        }
-        @keyframes scrollBounce {
-            0%, 100% { opacity: 0.35; transform: translateX(-50%) translateY(0); }
-            50%       { opacity: 0.65; transform: translateX(-50%) translateY(5px); }
-        }
 
         /* ===== FOOTER ===== */
         footer { background:var(--bg-card); border-top:1px solid rgba(255,255,255,.04); padding:36px 40px; text-align:center; font-size:.79rem; color:var(--text-muted); line-height:1.75; }
@@ -833,14 +806,6 @@
                 <span class="jc-price" id="jcPrice">1.0628</span>
                 <span class="jc-change dn" id="jcChange">-2.18%</span>
             </div>
-        </div>
-
-        <!-- scroll hint — solo mobile -->
-        <div class="scroll-hint">
-            <span>Seguí scrolleando</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <path d="M12 5v14M5 12l7 7 7-7"/>
-            </svg>
         </div>
 
     </div>

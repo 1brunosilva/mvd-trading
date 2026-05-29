@@ -508,21 +508,25 @@
         /* ===== SCROLL HINT ===== */
         .scroll-hint {
             display: none;
-            position: fixed;
-            bottom: 18px;
-            left: 50%;
-            z-index: 200;
-            pointer-events: none;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            color: rgba(232,237,242,0.35);
-            font-size: .72rem;
-            letter-spacing: .12em;
-            text-transform: uppercase;
-            font-weight: 500;
-            white-space: nowrap;
-            animation: scrollBounce 2.2s ease-in-out infinite;
+        }
+        @media (max-width: 960px) {
+            .scroll-hint {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+                color: rgba(232,237,242,0.35);
+                font-size: .72rem;
+                letter-spacing: .12em;
+                text-transform: uppercase;
+                font-weight: 500;
+                animation: scrollBounce 2.2s ease-in-out infinite;
+                position: absolute;
+                bottom: 18px;
+                left: 50%;
+                transform: translateX(-50%);
+                white-space: nowrap;
+            }
         }
         @keyframes scrollBounce {
             0%, 100% { opacity: 0.35; transform: translateX(-50%) translateY(0); }
@@ -544,8 +548,8 @@
             .journey-sticky {
                 grid-template-columns: 1fr;
                 gap: 24px;
-                top: 100px;
-                height: calc(100svh - 160px);
+                top: 72px;
+                height: calc(100svh - 72px);
                 padding: 20px 28px;
                 align-content: center;
             }
@@ -829,6 +833,14 @@
                 <span class="jc-price" id="jcPrice">1.0628</span>
                 <span class="jc-change dn" id="jcChange">-2.18%</span>
             </div>
+        </div>
+
+        <!-- scroll hint — solo mobile -->
+        <div class="scroll-hint">
+            <span>Seguí scrolleando</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
         </div>
 
     </div>
@@ -1143,10 +1155,6 @@ function updateJourney() {
         document.getElementById('jp'+i).classList.toggle('active', i === phase);
         document.getElementById('jd'+i).classList.toggle('active', i === phase);
     }
-
-    /* scroll hint — visible solo en mobile mientras se scrollea el journey */
-    const sh = document.getElementById('journeyScrollHint');
-    if (sh) sh.style.display = (window.innerWidth <= 960 && prog > 0.02 && prog < 0.92) ? 'flex' : 'none';
 }
 
 window.addEventListener('scroll', updateJourney, { passive: true });
@@ -1241,13 +1249,6 @@ window.addEventListener('scroll', () => {
         window.scrollY > 60 ? 'rgba(0,208,132,0.28)' : 'rgba(0,208,132,0.12)';
 }, { passive: true });
 </script>
-<!-- scroll hint fixed — solo mobile, fuera de la animación journey -->
-<div class="scroll-hint" id="journeyScrollHint">
-    <span>Seguí scrolleando</span>
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-        <path d="M12 5v14M5 12l7 7 7-7"/>
-    </svg>
-</div>
-
 </body>
 </html>
+

@@ -292,23 +292,23 @@
 
         /* ===== STEPPER ===== */
         #journey {
-            padding: 64px clamp(24px,6vw,80px);
+            padding: 40px clamp(24px,6vw,80px) 36px;
             background: var(--bg);
             overflow: hidden;
         }
         .stepper-header {
             text-align: center;
-            margin-bottom: 32px;
+            margin-bottom: 20px;
         }
-        .stepper-header h2 { font-size: clamp(1.7rem,2.8vw,2.4rem); margin-bottom: 8px; }
-        .stepper-header p { color: var(--text-muted); font-size: .95rem; }
+        .stepper-header h2 { font-size: clamp(1.4rem,2.2vw,2rem); margin-bottom: 6px; }
+        .stepper-header p { color: var(--text-muted); font-size: .86rem; }
 
         /* tab row */
         .stepper-tabs {
             display: flex;
             justify-content: center;
             gap: 0;
-            margin-bottom: 28px;
+            margin-bottom: 20px;
             border: 1px solid rgba(255,255,255,.08);
             border-radius: 12px;
             overflow: hidden;
@@ -318,7 +318,7 @@
         }
         .s-tab {
             flex: 1;
-            padding: 14px 12px;
+            padding: 10px 12px;
             border: none;
             background: rgba(255,255,255,.03);
             color: var(--text-muted);
@@ -354,7 +354,7 @@
         .s-panel {
             display: none;
             grid-template-columns: 1fr 1.4fr;
-            gap: 52px;
+            gap: 36px;
             align-items: center;
             animation: panelIn .45s cubic-bezier(.22,1,.36,1);
         }
@@ -365,22 +365,22 @@
         }
 
         /* left text */
-        .s-text .s-tag { display: inline-block; margin-bottom: 18px; }
-        .s-text h2 { font-size: clamp(1.7rem,2.8vw,2.3rem); margin-bottom: 18px; line-height: 1.15; }
-        .s-text p  { font-size: .92rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 20px; }
+        .s-text .s-tag { display: inline-block; margin-bottom: 10px; }
+        .s-text h2 { font-size: clamp(1.3rem,2.2vw,1.8rem); margin-bottom: 10px; line-height: 1.15; }
+        .s-text p  { font-size: .86rem; color: var(--text-muted); line-height: 1.55; margin-bottom: 14px; }
         .s-stats {
-            display: flex; gap: 28px;
+            display: flex; gap: 20px;
         }
         .s-stat { }
-        .s-stat-num { font-size: 1.6rem; font-weight: 900; line-height: 1; }
-        .s-stat-lbl { font-size: .7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: .1em; margin-top: 4px; }
+        .s-stat-num { font-size: 1.3rem; font-weight: 900; line-height: 1; }
+        .s-stat-lbl { font-size: .62rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: .08em; margin-top: 3px; }
 
         /* right chart */
         .s-chart {
             background: var(--bg-card);
             border: 1px solid rgba(255,255,255,.07);
-            border-radius: 18px;
-            padding: 24px 24px 18px;
+            border-radius: 14px;
+            padding: 16px 16px 12px;
             position: relative;
             overflow: hidden;
         }
@@ -408,7 +408,7 @@
         /* progress bar */
         .stepper-progress {
             max-width: 600px;
-            margin: 20px auto 0;
+            margin: 14px auto 0;
             display: flex;
             gap: 8px;
         }
@@ -834,7 +834,7 @@
                         <div class="s-chart-sub">Trading sin sistema — cuenta en caída</div>
                     </div>
                 </div>
-                <svg viewBox="0 0 500 180" preserveAspectRatio="none" height="180">
+                <svg viewBox="0 0 500 180" preserveAspectRatio="none" height="120">
                     <defs>
                         <linearGradient id="g0" x1="0" x2="0" y1="0" y2="1">
                             <stop offset="0%" stop-color="rgba(255,77,77,0.18)"/>
@@ -882,7 +882,7 @@
                         <div class="s-chart-sub">Aprendiendo — volatilidad controlada</div>
                     </div>
                 </div>
-                <svg viewBox="0 0 500 180" preserveAspectRatio="none" height="180">
+                <svg viewBox="0 0 500 180" preserveAspectRatio="none" height="120">
                     <defs>
                         <linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
                             <stop offset="0%" stop-color="rgba(240,180,41,0.15)"/>
@@ -930,7 +930,7 @@
                         <div class="s-chart-sub">Con método — crecimiento sostenido</div>
                     </div>
                 </div>
-                <svg viewBox="0 0 500 180" preserveAspectRatio="none" height="180">
+                <svg viewBox="0 0 500 180" preserveAspectRatio="none" height="120">
                     <defs>
                         <linearGradient id="g2" x1="0" x2="0" y1="0" y2="1">
                             <stop offset="0%" stop-color="rgba(0,208,132,0.2)"/>

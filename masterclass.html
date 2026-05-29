@@ -521,12 +521,8 @@
                 text-transform: uppercase;
                 font-weight: 500;
                 animation: scrollBounce 2.2s ease-in-out infinite;
-                position: fixed;
-                bottom: 22px;
-                left: 50%;
-                transform: translateX(-50%);
-                white-space: nowrap;
-                z-index: 50;
+                width: 100%;
+                padding: 8px 0 0;
                 pointer-events: none;
             }
         }
@@ -546,17 +542,22 @@
             .problems-grid, .testi-grid { grid-template-columns:1fr; }
             .learn-grid { grid-template-columns:1fr; }
             .founder-img-wrap { max-width:300px; margin:0 auto 20px; }
+            #journey {
+                height: 350vh;
+                position: relative;
+                overflow: visible;
+            }
             .journey-sticky {
                 grid-template-columns: 1fr;
-                gap: 24px;
+                gap: 20px;
                 top: 72px;
                 height: calc(100svh - 72px);
-                padding: 20px 28px;
-                align-content: center;
+                padding: 20px 28px 16px;
+                align-items: center;
+                justify-items: center;
             }
-            .journey-text { height: 220px; }
-            .journey-chart { flex-shrink: 0; }
-            #journey { height: 350vh; }
+            .journey-text { height: 220px; width: 100%; }
+            .journey-chart { width: 100%; }
         }
         @media (max-width:640px) {
             html, body { overflow-x: hidden; }

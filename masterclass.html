@@ -570,13 +570,12 @@
             .hero-content {
                 display: flex;
                 flex-direction: column;
-                justify-content: space-between;
+                justify-content: flex-end;
                 align-items: center;
                 text-align: center;
                 width: 100%;
                 max-width: none;
-                padding: 24px 28px 44px;
-                padding-top: calc(96px + 24px);
+                padding: 0 26px 52px;
                 flex: 1;
             }
             .hero-bottom {
@@ -587,9 +586,9 @@
             }
             .hero-eyebrow {
                 justify-content: center;
-                font-size: .58rem;
+                font-size: .55rem;
                 letter-spacing: .13em;
-                margin-bottom: 0;
+                margin-bottom: 8px;
             }
             /* sin gradiente horizontal en mobile */
             .hero-overlay {
@@ -603,23 +602,27 @@
             }
             .hero-eyebrow::before { display: none; }
             .hero-content h1 {
-                font-size: clamp(2.5rem, 9.5vw, 3rem);
-                margin-bottom: 10px;
+                font-size: clamp(2.1rem, 8.5vw, 2.6rem);
+                margin-bottom: 8px;
+                line-height: 1.02;
             }
             .hero-tagline {
-                font-size: .94rem;
-                line-height: 1.4;
-                margin-bottom: 28px;
+                font-size: .86rem;
+                line-height: 1.35;
+                margin-bottom: 20px;
             }
             .cta-primary {
                 width: 100%;
                 justify-content: center;
-                padding: 17px 24px;
-                border-radius: 3px;
+                padding: 15px 24px;
+                border-radius: 50px;
+                font-size: .78rem;
+                letter-spacing: .10em;
+                box-shadow: 0 0 32px rgba(0,208,132,.30);
             }
             .cta-note {
                 text-align: center;
-                margin-top: 14px;
+                margin-top: 12px;
             }
 
             /* ocultar logos bar */

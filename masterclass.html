@@ -22,12 +22,12 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; overflow-x: clip; }
+        html { scroll-behavior: smooth; }
         body {
             background: var(--bg);
             color: var(--text);
             font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-            overflow-x: clip;
+            overflow-x: hidden;
         }
         h2 {
             font-family: 'DM Serif Display', Georgia, serif;
@@ -290,152 +290,88 @@
         h2 em { color:var(--green); font-style:normal; }
         .sub { font-size:1.05rem; color:var(--text-muted); line-height:1.68; max-width:580px; margin-bottom:56px; }
 
-        /* ===== STEPPER ===== */
+        /* ===== JOURNEY (SCROLL-SCRUBBED) ===== */
         #journey {
-            padding: 40px clamp(24px,6vw,80px) 36px;
-            background: var(--bg);
-            overflow: hidden;
-        }
-        .stepper-header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .stepper-header h2 { font-size: clamp(1.4rem,2.2vw,2rem); margin-bottom: 6px; }
-        .stepper-header p { color: var(--text-muted); font-size: .86rem; }
-
-        /* tab row */
-        .stepper-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 0;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255,255,255,.08);
-            border-radius: 12px;
-            overflow: hidden;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .s-tab {
-            flex: 1;
-            padding: 10px 12px;
-            border: none;
-            background: rgba(255,255,255,.03);
-            color: var(--text-muted);
-            font-family: 'Outfit', sans-serif;
-            font-size: .78rem;
-            font-weight: 600;
-            letter-spacing: .06em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all .25s;
-            border-right: 1px solid rgba(255,255,255,.08);
+            height: 280vh;
             position: relative;
+            padding: 0;
         }
-        .s-tab:last-child { border-right: none; }
-        .s-tab::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 2px;
-            background: var(--green);
-            transform: scaleX(0);
-            transition: transform .3s cubic-bezier(.22,1,.36,1);
-        }
-        .s-tab.active {
-            background: rgba(0,208,132,.08);
-            color: var(--green);
-        }
-        .s-tab.active::after { transform: scaleX(1); }
-        .s-tab:hover:not(.active) { background: rgba(255,255,255,.05); color: var(--text); }
-
-        /* panel */
-        .stepper-panels { max-width: 1100px; margin: 0 auto; }
-        .s-panel {
-            display: none;
-            grid-template-columns: 1fr 1.4fr;
-            gap: 36px;
+        .journey-sticky {
+            position: sticky;
+            top: 100px;
+            height: calc(100vh - 100px);
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 56px;
             align-items: center;
-            animation: panelIn .45s cubic-bezier(.22,1,.36,1);
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 40px;
         }
-        .s-panel.active { display: grid; }
-        @keyframes panelIn {
-            from { opacity: 0; transform: translateY(16px); }
-            to   { opacity: 1; transform: none; }
+        .journey-text {
+            position: relative;
+            height: 260px;
         }
+        .j-phase {
+            position: absolute; top: 0; left: 0;
+            opacity: 0; transform: translateY(18px);
+            transition: opacity .5s cubic-bezier(.22,1,.36,1), transform .5s cubic-bezier(.22,1,.36,1);
+            pointer-events: none;
+        }
+        .j-phase.active { opacity: 1; transform: none; }
+        .j-phase .tag { display: inline-block; margin-bottom: 14px; }
+        .j-phase h2 { font-size: clamp(1.65rem,2.6vw,2.2rem); margin-bottom: 16px; }
+        .j-phase p { font-size: .98rem; color: var(--text-muted); line-height: 1.72; max-width: 400px; }
+        .j-dots {
+            position: absolute; bottom: -32px; left: 0;
+            display: flex; gap: 8px; align-items: center;
+        }
+        .j-dot {
+            width: 7px; height: 7px; border-radius: 50%;
+            background: rgba(255,255,255,.15);
+            transition: background .3s, transform .3s, width .3s;
+        }
+        .j-dot.active { background: var(--green); transform: scale(1.4); }
 
-        /* left text */
-        .s-text .s-tag { display: inline-block; margin-bottom: 10px; }
-        .s-text h2 { font-size: clamp(1.3rem,2.2vw,1.8rem); margin-bottom: 10px; line-height: 1.15; }
-        .s-text p  { font-size: .86rem; color: var(--text-muted); line-height: 1.55; margin-bottom: 14px; }
-        .s-stats {
-            display: flex; gap: 20px;
-        }
-        .s-stat { }
-        .s-stat-num { font-size: 1.3rem; font-weight: 900; line-height: 1; }
-        .s-stat-lbl { font-size: .62rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: .08em; margin-top: 3px; }
-
-        /* right chart */
-        .s-chart {
+        /* chart container */
+        .journey-chart {
             background: var(--bg-card);
             border: 1px solid rgba(255,255,255,.07);
-            border-radius: 14px;
-            padding: 16px 16px 12px;
+            border-radius: 18px;
+            padding: 22px 22px 14px;
             position: relative;
             overflow: hidden;
         }
-        .s-chart::before {
-            content:''; position:absolute; inset:0;
+        .journey-chart::before {
+            content:'';
+            position:absolute; inset:0;
             background:
                 repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.02) 39px,rgba(255,255,255,.02) 40px),
                 repeating-linear-gradient(90deg,transparent,transparent 69px,rgba(255,255,255,.02) 69px,rgba(255,255,255,.02) 70px);
             pointer-events:none;
         }
-        .s-chart-head {
-            display:flex; justify-content:space-between; align-items:center;
-            margin-bottom:14px; position:relative; z-index:1;
+        .jc-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 16px; position: relative; z-index: 1;
         }
-        .s-chart-pair { font-size:.82rem; font-weight:700; }
-        .s-chart-sub  { font-size:.7rem; color:var(--text-muted); margin-top:2px; }
-        .s-chart svg  { width:100%; display:block; position:relative; z-index:1; }
-        .s-chart-foot {
-            display:flex; align-items:center; gap:10px;
-            margin-top:14px; position:relative; z-index:1;
+        .jc-pair { font-size: .82rem; font-weight: 700; color: var(--text); }
+        .jc-sub { font-size: .7rem; color: var(--text-muted); margin-top: 2px; }
+        .jc-tfs { display: flex; gap: 5px; }
+        .tf { font-size: .65rem; padding: 3px 8px; border-radius: 4px; background: rgba(255,255,255,.05); color: var(--text-muted); border: none; cursor: pointer; font-family: inherit; }
+        .tf.on { background: rgba(0,208,132,.15); color: var(--green); }
+        #journeySvg { width: 100%; display: block; position: relative; z-index: 1; }
+        .jc-footer {
+            display: flex; align-items: center; gap: 10px;
+            margin-top: 14px; position: relative; z-index: 1;
         }
-        .s-price { font-size:1.1rem; font-weight:900; font-variant-numeric:tabular-nums; }
-        .s-change { font-size:.72rem; font-weight:700; padding:2px 7px; border-radius:4px; }
-
-        /* progress bar */
-        .stepper-progress {
-            max-width: 600px;
-            margin: 14px auto 0;
-            display: flex;
-            gap: 8px;
+        .jc-price {
+            font-size: 1.1rem; font-weight: 900; color: var(--green);
+            font-variant-numeric: tabular-nums;
+            transition: color .3s;
         }
-        .s-prog-bar {
-            flex: 1; height: 3px; border-radius: 2px;
-            background: rgba(255,255,255,.08);
-            position: relative; overflow: hidden; cursor: pointer;
-        }
-        .s-prog-bar::after {
-            content:''; position:absolute; inset:0;
-            background: var(--green);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform .3s;
-        }
-        .s-prog-bar.active::after { transform: scaleX(1); }
-        .s-prog-bar.filled::after { transform: scaleX(1); background: rgba(0,208,132,.35); }
-
-        @media (max-width:960px) {
-            .s-panel.active { grid-template-columns:1fr; gap:24px; }
-            .stepper-tabs { max-width:100%; }
-        }
-        @media (max-width:640px) {
-            #journey { padding: 48px 22px 36px; }
-            .s-tab { font-size:.62rem; padding:10px 6px; letter-spacing:.01em; }
-            .s-stats { gap:20px; }
-            .s-chart { display: none; }
+        .jc-change {
+            font-size: .72rem; font-weight: 700; padding: 2px 7px; border-radius: 4px;
+            transition: all .3s;
         }
 
         /* ===== PROBLEM ===== */
@@ -789,175 +725,123 @@
     </div>
 </div>
 
-<!-- ═══════════════════════ JOURNEY (STEPPER) ═══════════════════════ -->
+<!-- ═══════════════════════ JOURNEY (SCROLL-SCRUBBED) ═══════════════════════ -->
 <section id="journey">
-    <div class="stepper-header reveal">
-        <span class="tag">Tu evolución como trader</span>
-        <h2>Tres etapas. <em>Un camino.</em></h2>
-        <p>Cada trader pasa por esto. La diferencia está en cuánto tardás en llegar al otro lado.</p>
-    </div>
+    <div class="journey-sticky">
 
-    <!-- tabs -->
-    <div class="stepper-tabs">
-        <button class="s-tab active" data-step="0">📉 Sin sistema</button>
-        <button class="s-tab" data-step="1">⚡ El quiebre</button>
-        <button class="s-tab" data-step="2">📈 Con método</button>
-    </div>
-
-    <!-- panels -->
-    <div class="stepper-panels">
-
-        <!-- PANEL 0 -->
-        <div class="s-panel active" id="sp0">
-            <div class="s-text">
-                <span class="s-tag tag" style="color:var(--red)">Sin sistema</span>
+        <!-- left: text phases -->
+        <div class="journey-text">
+            <div class="j-phase active" id="jp0">
+                <span class="tag" style="color:var(--red)">Sin sistema</span>
                 <h2>Así pierde el <em style="color:var(--red)">95%</em> de los traders</h2>
                 <p>Operás por emoción. Comprás cuando ya subió y vendés cuando ya bajó. Sin metodología propia, el mercado siempre gana y vos siempre pagás la cuenta.</p>
-                <div class="s-stats">
-                    <div class="s-stat">
-                        <div class="s-stat-num" style="color:var(--red)">-34%</div>
-                        <div class="s-stat-lbl">Pérdida promedio</div>
-                    </div>
-                    <div class="s-stat">
-                        <div class="s-stat-num" style="color:var(--red)">95%</div>
-                        <div class="s-stat-lbl">Traders que pierden</div>
-                    </div>
-                    <div class="s-stat">
-                        <div class="s-stat-num" style="color:var(--text-muted)">Sin</div>
-                        <div class="s-stat-lbl">Plan de trading</div>
-                    </div>
-                </div>
             </div>
-            <div class="s-chart">
-                <div class="s-chart-head">
-                    <div>
-                        <div class="s-chart-pair">EUR/USD · Fase 1</div>
-                        <div class="s-chart-sub">Trading sin sistema — cuenta en caída</div>
-                    </div>
-                </div>
-                <svg viewBox="0 0 500 180" preserveAspectRatio="none" height="120">
-                    <defs>
-                        <linearGradient id="g0" x1="0" x2="0" y1="0" y2="1">
-                            <stop offset="0%" stop-color="rgba(255,77,77,0.18)"/>
-                            <stop offset="100%" stop-color="rgba(255,77,77,0)"/>
-                        </linearGradient>
-                        <filter id="glow0"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-                    </defs>
-                    <path d="M0,30 C20,28 35,45 60,55 C80,63 95,50 120,70 C140,85 155,78 180,100 C200,118 215,108 240,128 C260,144 275,135 300,150 C320,163 335,155 360,165 C380,173 400,160 430,168 C450,174 470,162 500,170 L500,180 L0,180Z" fill="url(#g0)"/>
-                    <path d="M0,30 C20,28 35,45 60,55 C80,63 95,50 120,70 C140,85 155,78 180,100 C200,118 215,108 240,128 C260,144 275,135 300,150 C320,163 335,155 360,165 C380,173 400,160 430,168 C450,174 470,162 500,170" fill="none" stroke="#ff4d4d" stroke-width="2.5" stroke-linecap="round" class="chart-draw" style="stroke-dasharray:900;stroke-dashoffset:900"/>
-                    <circle cx="500" cy="170" r="5" fill="#ff4d4d" filter="url(#glow0)"/>
-                    <circle cx="500" cy="170" r="2" fill="#fff"/>
-                </svg>
-                <div class="s-chart-foot">
-                    <span class="s-price" style="color:var(--red)">1.0512</span>
-                    <span class="s-change" style="background:rgba(255,77,77,.12);color:var(--red)">-3.82%</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- PANEL 1 -->
-        <div class="s-panel" id="sp1">
-            <div class="s-text">
-                <span class="s-tag tag" style="color:var(--gold)">El punto de quiebre</span>
+            <div class="j-phase" id="jp1">
+                <span class="tag" style="color:var(--gold)">El punto de quiebre</span>
                 <h2>Cuando empezás a <em>entender el mercado</em></h2>
                 <p>Dejás de seguir señales de otros. Empezás a leer el gráfico limpio, a entender el flujo del precio y a construir criterios propios para cada operación.</p>
-                <div class="s-stats">
-                    <div class="s-stat">
-                        <div class="s-stat-num" style="color:var(--gold)">±0%</div>
-                        <div class="s-stat-lbl">Resultado neutro</div>
-                    </div>
-                    <div class="s-stat">
-                        <div class="s-stat-num" style="color:var(--gold)">↑</div>
-                        <div class="s-stat-lbl">Aprendiendo</div>
-                    </div>
-                    <div class="s-stat">
-                        <div class="s-stat-num" style="color:var(--gold)">1er</div>
-                        <div class="s-stat-lbl">Plan propio</div>
-                    </div>
-                </div>
             </div>
-            <div class="s-chart">
-                <div class="s-chart-head">
-                    <div>
-                        <div class="s-chart-pair">EUR/USD · Fase 2</div>
-                        <div class="s-chart-sub">Aprendiendo — volatilidad controlada</div>
-                    </div>
-                </div>
-                <svg viewBox="0 0 500 180" preserveAspectRatio="none" height="120">
-                    <defs>
-                        <linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
-                            <stop offset="0%" stop-color="rgba(240,180,41,0.15)"/>
-                            <stop offset="100%" stop-color="rgba(240,180,41,0)"/>
-                        </linearGradient>
-                        <filter id="glow1"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-                    </defs>
-                    <path d="M0,120 C30,110 50,130 80,115 C110,100 130,125 160,110 C190,95 210,120 240,105 C270,90 290,115 320,100 C350,85 370,108 400,95 C430,82 455,100 500,88 L500,180 L0,180Z" fill="url(#g1)"/>
-                    <path d="M0,120 C30,110 50,130 80,115 C110,100 130,125 160,110 C190,95 210,120 240,105 C270,90 290,115 320,100 C350,85 370,108 400,95 C430,82 455,100 500,88" fill="none" stroke="#f0b429" stroke-width="2.5" stroke-linecap="round" class="chart-draw" style="stroke-dasharray:700;stroke-dashoffset:700"/>
-                    <circle cx="500" cy="88" r="5" fill="#f0b429" filter="url(#glow1)"/>
-                    <circle cx="500" cy="88" r="2" fill="#fff"/>
-                </svg>
-                <div class="s-chart-foot">
-                    <span class="s-price" style="color:var(--gold)">1.0834</span>
-                    <span class="s-change" style="background:rgba(240,180,41,.12);color:var(--gold)">+0.18%</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- PANEL 2 -->
-        <div class="s-panel" id="sp2">
-            <div class="s-text">
-                <span class="s-tag tag">Con formación</span>
+            <div class="j-phase" id="jp2">
+                <span class="tag">Con formación</span>
                 <h2>Resultados <em>consistentes</em> y repetibles</h2>
                 <p>Operás con un plan. Cada operación tiene lógica, stop y objetivo definido. El trading pasa de ser una apuesta a ser un proceso con edge real.</p>
-                <div class="s-stats">
-                    <div class="s-stat">
-                        <div class="s-stat-num" style="color:var(--green)">+28%</div>
-                        <div class="s-stat-lbl">Ganancia anual</div>
-                    </div>
-                    <div class="s-stat">
-                        <div class="s-stat-num" style="color:var(--green)">1:3</div>
-                        <div class="s-stat-lbl">Risk/Reward</div>
-                    </div>
-                    <div class="s-stat">
-                        <div class="s-stat-num" style="color:var(--green)">62%</div>
-                        <div class="s-stat-lbl">Win rate</div>
-                    </div>
-                </div>
             </div>
-            <div class="s-chart">
-                <div class="s-chart-head">
-                    <div>
-                        <div class="s-chart-pair">EUR/USD · Fase 3</div>
-                        <div class="s-chart-sub">Con método — crecimiento sostenido</div>
-                    </div>
-                </div>
-                <svg viewBox="0 0 500 180" preserveAspectRatio="none" height="120">
-                    <defs>
-                        <linearGradient id="g2" x1="0" x2="0" y1="0" y2="1">
-                            <stop offset="0%" stop-color="rgba(0,208,132,0.2)"/>
-                            <stop offset="100%" stop-color="rgba(0,208,132,0)"/>
-                        </linearGradient>
-                        <filter id="glow2"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-                    </defs>
-                    <path d="M0,160 C30,152 55,145 85,135 C115,125 140,118 170,108 C200,98 225,90 255,80 C285,70 310,62 340,52 C370,42 395,35 425,26 C455,17 475,12 500,8 L500,180 L0,180Z" fill="url(#g2)"/>
-                    <path d="M0,160 C30,152 55,145 85,135 C115,125 140,118 170,108 C200,98 225,90 255,80 C285,70 310,62 340,52 C370,42 395,35 425,26 C455,17 475,12 500,8" fill="none" stroke="#00d084" stroke-width="2.5" stroke-linecap="round" class="chart-draw" style="stroke-dasharray:600;stroke-dashoffset:600"/>
-                    <circle cx="500" cy="8" r="5" fill="#00d084" filter="url(#glow2)"/>
-                    <circle cx="500" cy="8" r="2" fill="#fff"/>
-                </svg>
-                <div class="s-chart-foot">
-                    <span class="s-price" style="color:var(--green)">1.1248</span>
-                    <span class="s-change" style="background:rgba(0,208,132,.12);color:var(--green)">+2.31%</span>
-                </div>
+            <div class="j-dots">
+                <div class="j-dot active" id="jd0"></div>
+                <div class="j-dot" id="jd1"></div>
+                <div class="j-dot" id="jd2"></div>
             </div>
         </div>
 
-    </div>
+        <!-- right: animated SVG chart -->
+        <div class="journey-chart">
+            <div class="jc-header">
+                <div>
+                    <div class="jc-pair">EUR/USD · H1</div>
+                    <div class="jc-sub">6 meses de evolución</div>
+                </div>
+                <div class="jc-tfs">
+                    <button class="tf">1H</button>
+                    <button class="tf on">4H</button>
+                    <button class="tf">1D</button>
+                </div>
+            </div>
 
-    <!-- progress bars -->
-    <div class="stepper-progress">
-        <div class="s-prog-bar active" data-step="0"></div>
-        <div class="s-prog-bar" data-step="1"></div>
-        <div class="s-prog-bar" data-step="2"></div>
+            <svg id="journeySvg" viewBox="0 0 700 230" preserveAspectRatio="none" height="220">
+                <defs>
+                    <linearGradient id="pathGrad" x1="0" x2="700" y1="0" y2="0" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%"   stop-color="#ff4d4d"/>
+                        <stop offset="36%"  stop-color="#ff6b35"/>
+                        <stop offset="50%"  stop-color="#f0b429"/>
+                        <stop offset="64%"  stop-color="#00d084"/>
+                        <stop offset="100%" stop-color="#00d084"/>
+                    </linearGradient>
+                    <linearGradient id="areaGrad" x1="0" x2="0" y1="0" y2="1">
+                        <stop offset="0%"   stop-color="rgba(0,208,132,0.18)"/>
+                        <stop offset="100%" stop-color="rgba(0,208,132,0)"/>
+                    </linearGradient>
+                    <filter id="glow">
+                        <feGaussianBlur stdDeviation="4" result="b"/>
+                        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    </filter>
+                    <clipPath id="pathClip">
+                        <rect id="clipRect" x="0" y="0" width="0" height="230"/>
+                    </clipPath>
+                </defs>
+
+                <!-- phase dividers -->
+                <line x1="260" y1="0" x2="260" y2="210" stroke="rgba(255,255,255,0.07)" stroke-width="1" stroke-dasharray="4 4"/>
+                <line x1="430" y1="0" x2="430" y2="210" stroke="rgba(255,255,255,0.07)" stroke-width="1" stroke-dasharray="4 4"/>
+
+                <!-- x-axis labels -->
+                <text x="10"  y="222" fill="rgba(255,77,77,0.45)"    font-size="8.5" font-family="Inter,sans-serif" font-weight="600" letter-spacing="0.06em">SIN SISTEMA</text>
+                <text x="272" y="222" fill="rgba(240,180,41,0.5)"    font-size="8.5" font-family="Inter,sans-serif" font-weight="600" letter-spacing="0.06em">APRENDIENDO</text>
+                <text x="442" y="222" fill="rgba(0,208,132,0.6)"     font-size="8.5" font-family="Inter,sans-serif" font-weight="600" letter-spacing="0.06em">CON MÉTODO</text>
+
+                <!-- area fill under curve (clipped) -->
+                <path id="journeyArea"
+                    d="M 0,120 C 18,112 32,107 52,102 C 68,97 78,112 98,128 C 113,141 123,155 142,170 C 155,180 165,190 182,198 C 196,204 208,210 223,208 C 236,206 246,201 262,198 C 276,195 286,191 302,189 C 315,187 325,190 341,188 C 355,186 365,178 382,181 C 395,184 406,170 422,162 C 437,154 447,140 464,130 C 478,122 490,108 505,97 C 519,86 532,74 548,64 C 561,56 573,44 590,37 C 605,31 620,24 643,18 C 658,14 676,10 700,6 L 700,230 L 0,230 Z"
+                    fill="url(#areaGrad)"
+                    clip-path="url(#pathClip)"
+                    opacity="0.6"
+                />
+
+                <!-- guide path (always visible, very faint) -->
+                <path id="journeyGuide"
+                    d="M 0,120 C 18,112 32,107 52,102 C 68,97 78,112 98,128 C 113,141 123,155 142,170 C 155,180 165,190 182,198 C 196,204 208,210 223,208 C 236,206 246,201 262,198 C 276,195 286,191 302,189 C 315,187 325,190 341,188 C 355,186 365,178 382,181 C 395,184 406,170 422,162 C 437,154 447,140 464,130 C 478,122 490,108 505,97 C 519,86 532,74 548,64 C 561,56 573,44 590,37 C 605,31 620,24 643,18 C 658,14 676,10 700,6"
+                    fill="none"
+                    stroke="rgba(255,255,255,0.06)"
+                    stroke-width="2"
+                />
+
+                <!-- animated main path -->
+                <path id="journeyPath"
+                    d="M 0,120 C 18,112 32,107 52,102 C 68,97 78,112 98,128 C 113,141 123,155 142,170 C 155,180 165,190 182,198 C 196,204 208,210 223,208 C 236,206 246,201 262,198 C 276,195 286,191 302,189 C 315,187 325,190 341,188 C 355,186 365,178 382,181 C 395,184 406,170 422,162 C 437,154 447,140 464,130 C 478,122 490,108 505,97 C 519,86 532,74 548,64 C 561,56 573,44 590,37 C 605,31 620,24 643,18 C 658,14 676,10 700,6"
+                    fill="none"
+                    stroke="url(#pathGrad)"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                />
+
+                <!-- moving dot -->
+                <circle id="journeyDot"  cx="0" cy="120" r="6"   fill="var(--green)" filter="url(#glow)" opacity="0"/>
+                <circle id="journeyDotC" cx="0" cy="120" r="2.5" fill="#fff" opacity="0"/>
+            </svg>
+
+            <div class="jc-footer">
+                <span class="jc-price" id="jcPrice">1.0628</span>
+                <span class="jc-change dn" id="jcChange">-2.18%</span>
+            </div>
+        </div>
+
+        <!-- scroll hint — solo mobile -->
+        <div class="scroll-hint">
+            <span>Seguí scrolleando</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
+        </div>
+
     </div>
 </section>
 
@@ -1213,75 +1097,67 @@ tick(); setInterval(tick, 1000);
 setTimeout(() => { const b = document.getElementById('spotsBar'); if (b) b.style.width = '77%'; }, 900);
 
 
-/* ── STEPPER ── */
-(function(){
-    var current = 0;
-    var autoTimer;
+/* ── JOURNEY SCROLL-SCRUBBED ── */
+const journeySection = document.getElementById('journey');
+const journeyPath    = document.getElementById('journeyPath');
+const journeyArea    = document.getElementById('journeyArea');
+const journeyDot     = document.getElementById('journeyDot');
+const journeyDotC    = document.getElementById('journeyDotC');
+const clipRect       = document.getElementById('clipRect');
+const jcPrice        = document.getElementById('jcPrice');
+const jcChange       = document.getElementById('jcChange');
 
-    function goTo(idx) {
-        current = idx;
-        // tabs
-        document.querySelectorAll('.s-tab').forEach(function(t,i){
-            t.classList.toggle('active', i === idx);
-        });
-        // panels
-        document.querySelectorAll('.s-panel').forEach(function(p,i){
-            p.classList.toggle('active', i === idx);
-        });
-        // progress bars
-        document.querySelectorAll('.s-prog-bar').forEach(function(b,i){
-            b.classList.toggle('active', i === idx);
-            b.classList.toggle('filled', i < idx);
-        });
-        // animate chart path in active panel
-        var panel = document.getElementById('sp'+idx);
-        if (panel) {
-            var path = panel.querySelector('.chart-draw');
-            if (path) {
-                var len = parseFloat(path.style.strokeDasharray);
-                path.style.strokeDashoffset = len;
-                requestAnimationFrame(function(){
-                    path.style.transition = 'stroke-dashoffset 1.2s cubic-bezier(.22,1,.36,1)';
-                    path.style.strokeDashoffset = '0';
-                });
-            }
-        }
+const pathLen = journeyPath.getTotalLength();
+journeyPath.style.strokeDasharray  = pathLen;
+journeyPath.style.strokeDashoffset = pathLen;
+
+const prices = ['1.0628','1.0714','1.0780','1.0842','1.0891','1.0930','1.1012','1.1085','1.1142'];
+const changes = ['-2.18%','-1.45%','-0.87%','-0.32%','+0.14%','+0.51%','+0.93%','+1.44%','+2.31%'];
+
+function updateJourney() {
+    if (!journeySection) return;
+    const rect  = journeySection.getBoundingClientRect();
+    const secH  = journeySection.offsetHeight - window.innerHeight;
+    const prog  = Math.max(0, Math.min(1, -rect.top / secH));
+
+    /* draw path */
+    journeyPath.style.strokeDashoffset = pathLen * (1 - prog);
+
+    /* clip area fill */
+    const svgW = 700;
+    clipRect.setAttribute('width', svgW * prog);
+
+    /* move dot */
+    if (prog > 0.01) {
+        const pt = journeyPath.getPointAtLength(pathLen * prog);
+        journeyDot.setAttribute('cx',  pt.x);
+        journeyDot.setAttribute('cy',  pt.y);
+        journeyDotC.setAttribute('cx', pt.x);
+        journeyDotC.setAttribute('cy', pt.y);
+        journeyDot.setAttribute('opacity',  '1');
+        journeyDotC.setAttribute('opacity', '1');
     }
 
-    // tab clicks
-    document.querySelectorAll('.s-tab').forEach(function(tab){
-        tab.addEventListener('click', function(){
-            clearInterval(autoTimer);
-            goTo(parseInt(tab.getAttribute('data-step')));
-        });
-    });
+    /* update footer price */
+    const idx = Math.min(Math.floor(prog * prices.length), prices.length - 1);
+    jcPrice.textContent  = prices[idx];
+    jcChange.textContent = changes[idx];
+    const isUp = changes[idx].startsWith('+');
+    jcChange.className = 'jc-change ' + (isUp ? 'up' : 'dn');
+    jcPrice.style.color = isUp ? 'var(--green)' : 'var(--red)';
 
-    // progress bar clicks
-    document.querySelectorAll('.s-prog-bar').forEach(function(bar){
-        bar.addEventListener('click', function(){
-            clearInterval(autoTimer);
-            goTo(parseInt(bar.getAttribute('data-step')));
-        });
-    });
-
-    // auto-advance every 4s
-    function startAuto() {
-        autoTimer = setInterval(function(){
-            goTo((current + 1) % 3);
-        }, 4000);
+    /* phase transitions */
+    let phase = 0;
+    if (prog >= 0.38) phase = 1;
+    if (prog >= 0.70) phase = 2;
+    for (let i = 0; i < 3; i++) {
+        document.getElementById('jp'+i).classList.toggle('active', i === phase);
+        document.getElementById('jd'+i).classList.toggle('active', i === phase);
     }
+}
 
-    // init
-    goTo(0);
-    startAuto();
-
-    // pause on hover
-    var journey = document.getElementById('journey');
-    if (journey) {
-        journey.addEventListener('mouseenter', function(){ clearInterval(autoTimer); });
-        journey.addEventListener('mouseleave', startAuto);
-    }
-})();
+window.addEventListener('scroll', updateJourney, { passive: true });
+updateJourney();
 
 /* ── FAQ ── */
 function faqToggle(btn) {

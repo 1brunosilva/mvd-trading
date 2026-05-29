@@ -521,14 +521,13 @@
                 text-transform: uppercase;
                 font-weight: 500;
                 animation: scrollBounce 2.2s ease-in-out infinite;
-                position: sticky;
-                bottom: 18px;
+                position: fixed;
+                bottom: 22px;
                 left: 50%;
                 transform: translateX(-50%);
                 white-space: nowrap;
-                width: fit-content;
-                margin-top: 16px;
-                z-index: 10;
+                z-index: 50;
+                pointer-events: none;
             }
         }
         @keyframes scrollBounce {
@@ -841,16 +840,15 @@
             </div>
         </div>
 
-    </div>
+        <!-- scroll hint — solo mobile -->
+        <div class="scroll-hint">
+            <span>Seguí scrolleando</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
+        </div>
 
-    <!-- scroll hint — solo mobile, fuera del sticky -->
-    <div class="scroll-hint">
-        <span>Seguí scrolleando</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <path d="M12 5v14M5 12l7 7 7-7"/>
-        </svg>
     </div>
-
 </section>
 
 <!-- ═══════════════════════ PROBLEM ═══════════════════════ -->
@@ -1166,6 +1164,18 @@ function updateJourney() {
 
 window.addEventListener('scroll', updateJourney, { passive: true });
 updateJourney();
+
+/* scroll hint visibility */
+const scrollHint = document.querySelector('.scroll-hint');
+if (scrollHint) {
+    window.addEventListener('scroll', function() {
+        if (!journeySection) return;
+        const r = journeySection.getBoundingClientRect();
+        const visible = r.top < window.innerHeight && r.bottom > 0;
+        scrollHint.style.opacity = visible ? '1' : '0';
+        scrollHint.style.pointerEvents = 'none';
+    }, { passive: true });
+}
 
 /* ── FAQ ── */
 function faqToggle(btn) {
